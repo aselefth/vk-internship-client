@@ -1,15 +1,24 @@
-import { faHome } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faVk } from '@fortawesome/free-brands-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import styles from './TopBar.module.scss';
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from 'react-router-dom';
 
-export function TopBar () {
+export function TopBar() {
+	const navigate = useNavigate();
 
-    const navigate = useNavigate();
-
-    return (
-        <nav className={styles.nav}>
-            <FontAwesomeIcon icon={faHome} onClick={_ => {navigate('/feed')}}/>
-        </nav>
-    )
+	return (
+		<nav className={styles.navContainer}>
+			<div className={styles.navBar}>
+				<p className={styles.logo}>
+					<FontAwesomeIcon
+						icon={faVk}
+						onClick={(_) => {
+							navigate('/feed');
+						}}
+					/>
+					<span>internship</span>
+				</p>
+			</div>
+		</nav>
+	);
 }

@@ -1,4 +1,4 @@
-.nav {
+.navContainer {
     display: flex;
     position: fixed;
     top: 0;
@@ -6,8 +6,26 @@
     right: 0;
     padding: 1rem 0;
     background-color: var(--mainBlue);
+    
+    .navBar {
+        display: flex;
+        align-items: center;
+        width: 1200px;
+        margin: 0 auto;
 
-    svg {
+       .logo {
         cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: .5rem;
+        svg {
+            font-size: 1.5rem;
+        }
+
+        span {
+            font-family: 'Press Start 2P';
+            font-size: 1rem;
+        }
+       }
     }
 }
