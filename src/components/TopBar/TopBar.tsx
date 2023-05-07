@@ -9,13 +9,13 @@ export function TopBar() {
 	return (
 		<nav className={styles.navContainer}>
 			<div className={styles.navBar}>
-				<p className={styles.logo}>
-					<FontAwesomeIcon
-						icon={faVk}
-						onClick={(_) => {
-							navigate('/feed');
-						}}
-					/>
+				<p
+					className={styles.logo}
+					onClick={(_) => {
+						navigate('/feed');
+					}}
+				>
+					<FontAwesomeIcon icon={faVk} />
 					<span>internship</span>
 				</p>
 			</div>

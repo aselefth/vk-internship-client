@@ -1,24 +1,17 @@
 import { Outlet } from 'react-router-dom';
-import { useLayoutEffect } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
-import { Post } from '../../components/Post/Post';
+import { TopBar } from '../../components/TopBar/TopBar';
+import styles from './RootLayout.module.scss';
+import { checkAuth } from '../../utils/checkAuth';
+import { Navigation } from '../../components/Navigation/Navigation';
 
 export function RootLayout() {
-	const location = useLocation();
-	const navigate = useNavigate();
 
-	useLayoutEffect(() => {
-		const jwtCookie = document.cookie;
-		if (!jwtCookie) {
-			navigate('/auth/signin');
-		}
-		if (location.pathname === '/') {
-			navigate('/feed');
-		}
-	}, []);
+	checkAuth();
 
 	return (
-		<main>
+		<main className={styles.main}>
+			<TopBar />
+			<Navigation />
 			<Outlet />
 		</main>
 	);
