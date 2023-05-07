@@ -1,5 +1,5 @@
 import ReactDOM from 'react-dom/client';
-import './index.css';
+import './index.scss';
 import store from './store/store.ts';
 import { Provider } from 'react-redux';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
@@ -12,20 +12,13 @@ import { FeedPage } from './pages/FeedPage/FeedPage.tsx';
 import { FriendsPage } from './pages/FriendsPage/FriendsPage.tsx';
 import { ReceivedRequestsPage } from './pages/ReceivedRequestsPage/ReceivedRequestsPage.tsx';
 import { SentRequestsPage } from './pages/SentRequestsPage/SentRequestsPage.tsx';
+import { AuthLayout } from './layouts/AuthLayout/AuthLayout.tsx';
 
 const router = createBrowserRouter([
   {
     path: '/',
     element: <RootLayout />,
     children: [
-      {
-        path: '/signin',
-        element: <SignInPage />
-      },
-      {
-        path: '/signup',
-        element: <SignUpPage />
-      },
       {
         path: '/friends',
         element: <FriendsPage />
@@ -51,6 +44,20 @@ const router = createBrowserRouter([
             element: <ReceivedRequestsPage />
           }
         ]
+      }
+    ]
+  },
+  {
+    path: '/auth',
+    element: <AuthLayout />,
+    children: [
+      {
+        path: '/auth/signin',
+        element: <SignInPage />
+      },
+      {
+        path: '/auth/signup',
+        element: <SignUpPage />
       }
     ]
   }
