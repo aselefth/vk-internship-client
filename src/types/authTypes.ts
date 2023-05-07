@@ -1,6 +1,14 @@
-export type AuthType = {
-    firstName: string,
-    lastName: string,
-    email: string,
-    password: string
+export type SignUpType = {
+	email: string;
+	password: string;
+	firstName: string;
+	lastName: string;
+	age: number;
+	city: string;
+	university: string;
+}
+
+export type SignInType = {
+    email: string;
+	password: string;
 }

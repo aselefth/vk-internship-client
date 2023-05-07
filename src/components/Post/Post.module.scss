@@ -1,0 +1,32 @@
+.post {
+    width: 700px;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    padding: .5rem;
+    border-radius: .5rem;
+    gap: .5rem;
+
+    h2 {
+        font-size: 1rem;
+    }
+
+    h1 {
+        font-size: 1.25rem;
+    }
+
+    p {
+        font-size: 1rem;
+    }
+
+    .buttonsSection {
+        display: flex;
+        align-items: center;
+        gap: .25rem;
+        font-size: 1rem;
+
+        svg {
+            cursor: pointer;
+        }
+    }
+}

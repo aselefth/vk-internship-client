@@ -9,10 +9,20 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import styles from './Navigation.module.scss';
 import { useNavigate } from 'react-router-dom';
 import { useCurrentPath } from '../../hooks/useCurrentPath';
+import { useLazySignOutQuery } from '../../store/Api/authSlice';
 
 export function Navigation() {
 	const navigate = useNavigate();
 	const currentPath = useCurrentPath();
+	const [signOut] = useLazySignOutQuery();
+
+	async function handleSignOut() {
+		try {
+			await signOut(undefined);
+		} catch (e) {
+			console.error(e);
+		}
+	}
 
 	return (
 		<aside className={styles.aside}>
@@ -54,7 +64,7 @@ export function Navigation() {
 			</div>
 			<div
 				className={styles.navLink}
-				onClick={(_) => navigate('/auth')}
+				onClick={handleSignOut}
 			>
 				<FontAwesomeIcon icon={faDoorOpen} />
 				<span>выйти</span>
