@@ -14,7 +14,7 @@ import { FriendsPage } from './pages/FriendsPage/FriendsPage.tsx';
 import { ReceivedRequestsPage } from './pages/ReceivedRequestsPage/ReceivedRequestsPage.tsx';
 import { AuthLayout } from './layouts/AuthLayout/AuthLayout.tsx';
 import { CookiesProvider } from 'react-cookie';
-import { UserPage } from './pages/UserPage/UserPage.tsx';
+// import { UserPage } from './pages/UserPage/UserPage.tsx';
 
 const router = createBrowserRouter([
 	{
