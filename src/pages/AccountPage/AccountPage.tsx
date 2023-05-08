@@ -1,4 +1,5 @@
 import { CreatePostModal } from '../../components/CreatePostModal/CreatePostModal';
+import { Loader } from '../../components/Loader/Loader';
 import { Post } from '../../components/Post/Post';
 import { useAppSelector } from '../../hooks/redux';
 import { useGetUserPostsQuery } from '../../store/Api/postsSlice';
@@ -7,10 +8,13 @@ import styles from './AccountPage.module.scss';
 export function AccountPage() {
 	const id = useAppSelector((state) => state.userSlice.id);
 	const currentUser = useAppSelector((state) => state.userSlice);
-	const { data: posts } = useGetUserPostsQuery(id);
+	const { data: posts, isLoading } = useGetUserPostsQuery(id);
+
+	console.log(currentUser);
 
 	return (
 		<div className={styles.accountPage}>
+			{isLoading && <Loader />}
 			<section className={styles.userInfo}>
 				<h1>
 					{currentUser.firstName} {currentUser.lastName}

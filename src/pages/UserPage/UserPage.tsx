@@ -6,40 +6,60 @@ import { Post } from '../../components/Post/Post';
 import { faPaperPlane } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useAppSelector } from '../../hooks/redux';
-import { useGetSentRequestsQuery, useSendRequestMutation } from '../../store/Api/requestsSlice';
+import {
+	useGetSentRequestsQuery,
+	useSendRequestMutation
+} from '../../store/Api/requestsSlice';
 import { useState, useEffect } from 'react';
+import { useGetFriendsQuery } from '../../store/Api/friendsSlice';
+import { Loader } from '../../components/Loader/Loader';
 
-export function UserPage () {
+export function UserPage() {
+	const { id } = useParams();
+	const { data: user, isLoading } = useGetUserByIdQuery(String(id));
+	const { data: posts } = useGetUserPostsQuery(String(id));
+	const { data: sentRequests } = useGetSentRequestsQuery(undefined);
+	const { data: friends } = useGetFriendsQuery(undefined);
+	const [sendRequest] = useSendRequestMutation();
+	const [isRequest, setIsRequest] = useState(false);
+	const [isFriend, setIsFriend] = useState(false);
 
-    const {id} = useParams();
-    const {data: user} = useGetUserByIdQuery(String(id));
-    const {data: posts} = useGetUserPostsQuery(String(id));
-    const {data: sentRequests} = useGetSentRequestsQuery(undefined);
-    const currentUser = useAppSelector(state => state.userSlice);
-    const [sendRequest] = useSendRequestMutation();
-    const [isRequest, setIsRequest] = useState(false);
+	useEffect(() => {
+		if (sentRequests) {
+			const myReq = sentRequests.sentRequests.find(
+				(usr) => usr.id === user?.id
+			);
+			if (myReq) {
+				setIsRequest(true);
+			} else {
+				setIsRequest(false);
+			}
+		}
+	}, [sentRequests]);
 
-    useEffect(() => {
-        if (sentRequests) {
-            const myReq = sentRequests.sentRequests.find(usr => usr.id === user?.id);
-            if (myReq) {
-                setIsRequest(true);
-            } else {
+	useEffect(() => {
+		if (friends) {
+			const friend = friends.find((frnd) => frnd.id === user?.id);
+			if (friend) {
+				setIsFriend(true);
                 setIsRequest(false);
-            }
-        }
-    }, [sentRequests])
+			} else {
+				setIsFriend(false);
+			}
+		}
+	}, [friends]);
 
-    async function handleSendRequest (receiverId: string) {
-        try {
-            await sendRequest(receiverId);
-        } catch (e) {
-            console.error(e);
-        }
-    }
+	async function handleSendRequest(receiverId: string) {
+		try {
+			await sendRequest(receiverId);
+		} catch (e) {
+			console.error(e);
+		}
+	}
 
-    return (
-        <div className={styles.accountPage}>
+	return (
+		<div className={styles.accountPage}>
+            {isLoading && <Loader />}
 			<section className={styles.userInfo}>
 				<h1>
 					{user?.firstName} {user?.lastName}
@@ -64,15 +84,24 @@ export function UserPage () {
 						</tr>
 					</tbody>
 				</table>
-                <div className={styles.requestsSection}>
-                    <button onClick={_ => handleSendRequest(String(user?.id))} disabled={isRequest}>
-                        <span>{isRequest ? 'запрос отправлен' : 'отправить запрос'}</span>
-                        <FontAwesomeIcon icon={faPaperPlane} />
-                    </button>
-                </div>
+				<div className={styles.requestsSection}>
+					{!isFriend && (
+						<button
+							onClick={(_) => handleSendRequest(String(user?.id))}
+							disabled={isRequest}
+						>
+							<span>
+								{isRequest
+									? 'запрос отправлен'
+									: 'отправить запрос'}
+							</span>
+							<FontAwesomeIcon icon={faPaperPlane} />
+						</button>
+					)}
+				</div>
 			</section>
 			{posts &&
 				posts.map((post) => <Post key={post.id} postId={post?.id} />)}
 		</div>
-    )
+	);
 }

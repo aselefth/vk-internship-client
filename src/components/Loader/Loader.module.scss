@@ -1,0 +1,23 @@
+.loader {
+    position: fixed;
+    top: 4rem;
+    padding: .75rem 1rem;
+    font-size: 1.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: antiquewhite;
+    border-radius: .5rem;
+    animation: animate 2s infinite;
+}
+
+@keyframes animate {
+    0% {
+        background-color: antiquewhite; 
+    }
+    50% {
+        background-color: rgb(235, 221, 203);
+    }
+    100% {
+        background-color: antiquewhite;
+    }
+}

@@ -9,7 +9,8 @@ const authSlice = mainApiSlice.injectEndpoints({
 				url: 'auth/signup',
 				body,
 				method: 'POST'
-			})
+			}),
+			invalidatesTags: ['App']
 		}),
 		signIn: build.mutation<UserType, SignInType>({
 			query: (body) => ({
@@ -17,12 +18,14 @@ const authSlice = mainApiSlice.injectEndpoints({
 				body,
 				method: 'POST',
 				credentials: 'include',
-			})
+			}),
+			invalidatesTags: ['App']
 		}),
 		signOut: build.query({
 			query: () => ({
 				url: '/auth/signout'
-			})
+			}),
+			providesTags: ['App']
 		})
 	})
 });

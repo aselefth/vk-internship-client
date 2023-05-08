@@ -6,6 +6,7 @@ export type SignUpType = {
 	age: number;
 	city: string;
 	university: string;
+	profileImage: string;
 }
 
 export type SignInType = {

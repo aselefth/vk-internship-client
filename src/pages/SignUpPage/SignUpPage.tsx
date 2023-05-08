@@ -15,14 +15,14 @@ export function SignUpPage() {
 	async function handleSignUp (signUpDto: SignUpType) {
 		try {
 			await signUp(signUpDto);
-			navigate('/auth/signin')
+			navigate('/auth/signin');
 		} catch (e) {
 			console.error(e);
 		}
 	}
 
 	const onSubmit: SubmitHandler<SignUpType> = data => {
-		handleSignUp(data);
+		handleSignUp(data)
 	};
 
 	return (
