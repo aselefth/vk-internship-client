@@ -2,7 +2,9 @@ import ReactDOM from 'react-dom/client';
 import './index.scss';
 import store from './store/store.ts';
 import { Provider } from 'react-redux';
-import { RouterProvider, createBrowserRouter } from 'react-router-dom';
+import { 
+	// RouterProvider, 
+	createBrowserRouter } from 'react-router-dom';
 import { RootLayout } from './layouts/RootLayout/RootLayout.tsx';
 import { SignInPage } from './pages/SignInPage/SignInPage.tsx';
 import { SignUpPage } from './pages/SignUpPage/SignUpPage.tsx';
@@ -13,6 +15,7 @@ import { ReceivedRequestsPage } from './pages/ReceivedRequestsPage/ReceivedReque
 import { AuthLayout } from './layouts/AuthLayout/AuthLayout.tsx';
 import { CookiesProvider } from 'react-cookie';
 import { UserPage } from './pages/UserPage/UserPage.tsx';
+import App from './App.tsx';
 
 const router = createBrowserRouter([
 	{
@@ -56,11 +59,13 @@ const router = createBrowserRouter([
 		]
 	}
 ]);
+console.log(router);
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
 	<Provider store={store}>
 		<CookiesProvider>
-			<RouterProvider router={router} />
+			{/* <RouterProvider router={router} /> */}
+			<App />
 		</CookiesProvider>
 	</Provider>
 );
