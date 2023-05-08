@@ -5,7 +5,6 @@ import styles from './RequestsPage.module.scss';
 
 export function ReceivedRequestsPage() {
 	const { data: requests, isLoading } = useGetReceivedRequestsQuery(undefined);
-	console.log(requests);
 
 	return (
 		<div className={styles.pageWrapper}>

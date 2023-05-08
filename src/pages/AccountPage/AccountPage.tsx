@@ -10,8 +10,6 @@ export function AccountPage() {
 	const currentUser = useAppSelector((state) => state.userSlice);
 	const { data: posts, isLoading } = useGetUserPostsQuery(id);
 
-	console.log(currentUser);
-
 	return (
 		<div className={styles.accountPage}>
 			{isLoading && <Loader />}
