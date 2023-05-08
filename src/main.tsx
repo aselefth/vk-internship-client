@@ -37,10 +37,10 @@ const router = createBrowserRouter([
 				path: '/requests',
 				element: <ReceivedRequestsPage />
 			},
-			{
-				path: '/users/:id',
-				element: <UserPage />
-			}
+			// {
+			// 	path: '/users/:id',
+			// 	element: <UserPage />
+			// }
 		]
 	},
 	{
