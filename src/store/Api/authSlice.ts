@@ -1,5 +1,6 @@
 import { mainApiSlice } from '.';
 import { SignInType, SignUpType } from '../../types/authTypes';
+import { UserType } from '../../types/user';
 
 const authSlice = mainApiSlice.injectEndpoints({
 	endpoints: (build) => ({
@@ -10,7 +11,7 @@ const authSlice = mainApiSlice.injectEndpoints({
 				method: 'POST'
 			})
 		}),
-		signIn: build.mutation<any, SignInType>({
+		signIn: build.mutation<UserType, SignInType>({
 			query: (body) => ({
 				url: 'auth/signin',
 				body,

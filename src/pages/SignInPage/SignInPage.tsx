@@ -5,7 +5,8 @@ import {useForm, SubmitHandler} from 'react-hook-form';
 import { useSignInMutation } from '../../store/Api/authSlice';
 import { SignInType } from '../../types/authTypes';
 import { useNavigate } from 'react-router-dom';
-import { useCookies } from 'react-cookie';
+import { useAppDispatch } from '../../hooks/redux';
+import { setUser } from '../../store/userSlice';
 
 
 export function SignInPage() {
@@ -13,11 +14,15 @@ export function SignInPage() {
 	const {register, handleSubmit} = useForm<SignInType>();
 	const [signIn] = useSignInMutation();
 	const navigate = useNavigate();
+	const dispatch = useAppDispatch();
 	async function handleSignIn(signInDto: SignInType) {
 		try {
-			const res = await signIn(signInDto);
+			const res = await signIn(signInDto).unwrap();
 			console.log(res);
-			navigate('/feed');
+			if (res.id) {
+				localStorage.setItem('user', JSON.stringify(res));
+				navigate('/feed');
+			}
 		} catch (e) {
 			console.error(e);
 		}

@@ -10,15 +10,33 @@ import styles from './Navigation.module.scss';
 import { useNavigate } from 'react-router-dom';
 import { useCurrentPath } from '../../hooks/useCurrentPath';
 import { useLazySignOutQuery } from '../../store/Api/authSlice';
+import { useAppDispatch } from '../../hooks/redux';
+import { setUser } from '../../store/userSlice';
 
 export function Navigation() {
 	const navigate = useNavigate();
 	const currentPath = useCurrentPath();
 	const [signOut] = useLazySignOutQuery();
+	const dispatch = useAppDispatch();
 
 	async function handleSignOut() {
 		try {
 			await signOut(undefined);
+			navigate('/auth/signin');
+			dispatch(
+				setUser({
+					user: {
+						firstName: '',
+						lastName: '',
+						email: '',
+						password: '',
+						city: '',
+						university: '',
+						age: 0
+					}
+				})
+			);
+			localStorage.removeItem('user');
 		} catch (e) {
 			console.error(e);
 		}
@@ -62,10 +80,7 @@ export function Navigation() {
 				<FontAwesomeIcon icon={faSignsPost} />
 				<span>запросы</span>
 			</div>
-			<div
-				className={styles.navLink}
-				onClick={handleSignOut}
-			>
+			<div className={styles.navLink} onClick={handleSignOut}>
 				<FontAwesomeIcon icon={faDoorOpen} />
 				<span>выйти</span>
 			</div>

@@ -1,9 +1,9 @@
-import { LikeType } from "./like";
+import { UserType } from "./user";
 
 export type PostType = {
     id: string;
     post: string;
-    title: string;
     userId: string;
-    likes: LikeType[];
+    likedBy: UserType[];
+    createdAt: string;
 }

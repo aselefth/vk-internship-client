@@ -7,6 +7,7 @@ export function FeedPage() {
 
 	return (
 		<div className={styles.postsWrapper}>
+			<h1>Лента</h1>
 			{posts &&
 				posts.map((post) => (
 					<Post key={String(post.id)} postId={String(post.id)} />

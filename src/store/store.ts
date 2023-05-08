@@ -1,9 +1,11 @@
 import { configureStore } from "@reduxjs/toolkit";
 import {mainApiSlice} from './Api/index';
+import userSlice from './userSlice';
 
 const store = configureStore({
     reducer: {
-        [mainApiSlice.reducerPath]: mainApiSlice.reducer
+        [mainApiSlice.reducerPath]: mainApiSlice.reducer,
+        userSlice
     },
     middleware: getDefaultMiddleware => getDefaultMiddleware().concat(mainApiSlice.middleware),
     devTools: true

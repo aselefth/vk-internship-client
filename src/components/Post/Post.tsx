@@ -4,30 +4,48 @@ import {
 } from '../../store/Api/postsSlice';
 import styles from './Post.module.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faHeart, faScaleBalanced } from '@fortawesome/free-solid-svg-icons';
-import { useGetMeQuery } from '../../store/Api/usersSlice';
+import { faHeart } from '@fortawesome/free-solid-svg-icons';
 import { useEffect, useState } from 'react';
+import { useAppSelector } from '../../hooks/redux';
+import { useGetUserByIdQuery } from '../../store/Api/usersSlice';
+import { UserType } from '../../types/user';
+import { getDateString } from '../../utils/getDate';
+import { useNavigate } from 'react-router-dom';
 
 interface PostProps {
 	postId: string;
 }
 
 export function Post({ postId }: PostProps) {
-	const { data: post, isLoading } = useGetPostByIdQuery(postId);
-	const { data: currentUser } = useGetMeQuery(undefined);
+	const { data: post } = useGetPostByIdQuery(postId);
+	const currentUserId = useAppSelector((state) => state.userSlice.id);
 	const [likePost] = useLikePostMutation();
-    const [hasLiked, setHasLiked] = useState(false);
+	const [hasLiked, setHasLiked] = useState(false);
+	const { data: user } = useGetUserByIdQuery(String(post?.userId), {skip: currentUserId?.length === 0});
+	const navigate = useNavigate();
 
-    useEffect(() => {
-        if (post) {
-            const isLike = post?.likes?.find(like => like?.userId === currentUser?.id);
-            if (isLike) {
-                setHasLiked(true);
-            }
-        }
-    }, [post, currentUser])
+	useEffect(() => {
+		if (post) {
+			const isLike = post?.likedBy?.find(
+				(usr: UserType) => usr?.id === currentUserId
+			);
+			if (isLike) {
+				setHasLiked(true);
+			} else {
+				setHasLiked(false);
+			}
+		}
+	}, [post]);
 
-	async function handleToggleLike(body: { postId: string; userId: string }) {
+	function handleNavigateToUserPage () {
+		if (currentUserId === user?.id) {
+			navigate('/account')
+		} else {
+			navigate(`/users/${user?.id}`)
+		}
+	}
+
+	async function handleToggleLike(body: { postId: string }) {
 		try {
 			await likePost(body);
 		} catch (e) {
@@ -37,21 +55,22 @@ export function Post({ postId }: PostProps) {
 
 	return (
 		<div className={styles.post}>
-			<h2>@{post?.userId}</h2>
-			<h1>{post?.title}</h1>
+			<h2 onClick={_ => handleNavigateToUserPage()}>
+				{user?.firstName} {user?.lastName}
+			</h2>
+			<h3>{post && getDateString(`${post?.createdAt}`)}</h3>
 			<p>{post?.post}</p>
 			<div className={styles.buttonsSection}>
 				<FontAwesomeIcon
 					icon={faHeart}
-                    color={hasLiked ? 'var(--mainBlue)' : 'black'}
+					color={hasLiked ? 'var(--mainBlue)' : 'black'}
 					onClick={(_) =>
 						handleToggleLike({
-							postId: String(post?.id),
-							userId: String(currentUser?.id)
+							postId: String(post?.id)
 						})
 					}
 				/>
-				<span>{post?.likes?.length}</span>
+				<span>{post?.likedBy?.length}</span>
 			</div>
 		</div>
 	);

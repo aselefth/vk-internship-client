@@ -1,0 +1,80 @@
+.accountPage {
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 1.5rem;
+
+	.userInfo {
+		display: flex;
+		flex-direction: column;
+        align-items: center;
+		gap: 0.75rem;
+
+		table {
+            font-size: 1rem;
+			border-collapse: collapse;
+			tr:nth-child(2n + 1) {
+                background-color: rgba(120 160 255 / .3);
+                td:first-child {
+                    border-right: 2px solid white;
+                }
+            }
+
+            tr:nth-child(2n) {
+                background-color: white;
+
+                td:first-child {
+                    border-right: 2px solid rgba(120 160 255 / .3);
+                }
+            }
+
+            tr:last-child {
+
+                td:first-child {
+                    border-radius: 0 0 0 .5rem;
+                }
+                td:last-child {
+                    border-radius: 0 0 .5rem 0;
+                }
+            }
+
+            tr:first-child {
+
+                td:first-child {
+                    border-radius: .5rem 0 0 0 ;
+                }
+                td:last-child {
+                    border-radius: 0 .5rem 0  0;
+                }
+            }
+
+            tr {
+                td {
+                    padding: .5rem 1.5rem;
+                    font-size: 1.2rem;
+                }
+            }
+		}
+
+        .requestsSection {
+            button {
+                background-color: var(--mainBlue);
+                display: flex;
+                align-items: center;
+                padding: .5rem;
+                border-radius: .5rem;
+                border: none;
+                outline: transparent;
+                gap: .5rem;
+                font-size: 1rem;
+                cursor: pointer;
+                transition: .15s;
+
+                &:hover {
+                    background-color: var(--mainBlueShadow);
+                }
+            }
+        }
+	}
+}

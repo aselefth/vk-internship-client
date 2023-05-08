@@ -2,7 +2,7 @@ import { LikeType } from "./like";
 import { PostType } from "./post";
 
 export type UserType = {
-	id?: string;
+	id: string;
 	email: string;
 	password: string;
 	firstName: string;
@@ -11,7 +11,7 @@ export type UserType = {
 	city: string;
 	university: string;
 	posts?: PostType[];
-	likes?: LikeType[];
+	likedPosts?: PostType[];
 };
 
 export type SignUpType = {

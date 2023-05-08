@@ -6,9 +6,16 @@ const usersSlice = mainApiSlice.injectEndpoints({
         getMe: build.query<UserType, undefined>({
             query: () => ({
                 url: 'users/getme'
-            })
+            }),
+            providesTags: ['App']
+        }),
+        getUserById: build.query<Omit<UserType, 'password'>, string>({
+            query: (userId) => ({
+                url: `/users/${userId}`
+            }),
+            providesTags: ['App']
         })
     })
 })
 
-export const {useGetMeQuery} = usersSlice;
+export const {useGetMeQuery, useGetUserByIdQuery} = usersSlice;
