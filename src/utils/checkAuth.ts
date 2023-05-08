@@ -1,9 +1,7 @@
 import { useLayoutEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { useGetMeQuery } from '../store/Api/usersSlice';
 import { useAppDispatch } from '../hooks/redux';
 import { setUser } from '../store/userSlice';
-import jwt from 'jwt-decode';
 import { useCookies } from 'react-cookie';
 
 export function checkAuth() {

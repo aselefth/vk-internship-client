@@ -1,4 +1,3 @@
-import { LikeType } from "./like";
 import { PostType } from "./post";
 
 export type UserType = {
@@ -12,7 +11,6 @@ export type UserType = {
 	university: string;
 	posts?: PostType[];
 	likedPosts?: PostType[];
-	profileImage: string;
 };
 
 export type SignUpType = {

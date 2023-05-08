@@ -26,6 +26,7 @@ export function Navigation() {
 			dispatch(
 				setUser({
 					user: {
+						id: '',
 						firstName: '',
 						lastName: '',
 						email: '',
