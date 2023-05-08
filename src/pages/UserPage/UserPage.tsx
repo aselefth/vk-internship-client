@@ -5,7 +5,6 @@ import { useGetUserPostsQuery } from '../../store/Api/postsSlice';
 import { Post } from '../../components/Post/Post';
 import { faPaperPlane } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { useAppSelector } from '../../hooks/redux';
 import {
 	useGetSentRequestsQuery,
 	useSendRequestMutation

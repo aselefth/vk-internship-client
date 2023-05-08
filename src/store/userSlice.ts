@@ -10,7 +10,6 @@ const initialState: UserType = {
     city: '',
     university: '',
     age: 0,
-    profileImage: ''
 }
 
 const userSlice = createSlice({
@@ -26,7 +25,6 @@ const userSlice = createSlice({
             state.email = action.payload.user.email;
             state.university = action.payload.user.university;
             state.password = action.payload.user.password;
-            state.profileImage = action.payload.user.profileImage;
         }
     }
 })
