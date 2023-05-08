@@ -13,13 +13,13 @@ export function checkAuth() {
 	useLayoutEffect(() => {
 		if (!jwt_token) {
 			localStorage.removeItem('user');
-			navigate('vk-internship-client/auth/signin');
+			navigate('/auth/signin');
 		}
 		const user = JSON.parse(`${localStorage.getItem('user')}`);
 		dispatch(setUser({user}));
 
 		if (location.pathname === '/') {
-			navigate('vk-internship-client/feed');
+			navigate('/feed');
 		}
 	}, []);
 }

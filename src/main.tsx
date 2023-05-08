@@ -19,41 +19,41 @@ import { UserPage } from './pages/UserPage/UserPage.tsx';
 
 const router = createBrowserRouter([
 	{
-		path: 'vk-internship-client/',
+		path: '/',
 		element: <RootLayout />,
 		children: [
 			{
-				path: 'vk-internship-client/friends',
+				path: '/friends',
 				element: <FriendsPage />
 			},
 			{
-				path: 'vk-internship-client/account',
+				path: '/account',
 				element: <AccountPage />
 			},
 			{
-				path: 'vk-internship-client/feed',
+				path: '/feed',
 				element: <FeedPage />
 			},
 			{
-				path: 'vk-internship-client/requests',
+				path: '/requests',
 				element: <ReceivedRequestsPage />
 			},
 			{
-				path: 'vk-internship-client/users/:id',
+				path: '/users/:id',
 				element: <UserPage />
 			}
 		]
 	},
 	{
-		path: 'vk-internship-client/auth',
+		path: '/auth',
 		element: <AuthLayout />,
 		children: [
 			{
-				path: 'vk-internship-client/auth/signin',
+				path: '/auth/signin',
 				element: <SignInPage />
 			},
 			{
-				path: 'vk-internship-client/auth/signup',
+				path: '/auth/signup',
 				element: <SignUpPage />
 			}
 		]
