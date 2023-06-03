@@ -5,37 +5,30 @@ import {
 import styles from './Post.module.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart } from '@fortawesome/free-solid-svg-icons';
-import { useEffect, useState } from 'react';
 import { useAppSelector } from '../../hooks/redux';
 import { useGetUserByIdQuery } from '../../store/Api/usersSlice';
-import { UserType } from '../../types/user';
+import jwt from 'jwt-decode';
 import { getDateString } from '../../utils/getDate';
 import { useNavigate } from 'react-router-dom';
+import { useCookies } from 'react-cookie';
 
 interface PostProps {
 	postId: string;
 }
 
 export function Post({ postId }: PostProps) {
+	const [{ jwt_token }] = useCookies(['jwt_token']);
 	const { data: post } = useGetPostByIdQuery(postId);
 	const currentUserId = useAppSelector((state) => state.userSlice.id);
 	const [likePost] = useLikePostMutation();
-	const [hasLiked, setHasLiked] = useState(false);
 	const { data: user } = useGetUserByIdQuery(String(post?.userId), {skip: currentUserId?.length === 0});
 	const navigate = useNavigate();
-
-	useEffect(() => {
-		if (post) {
-			const isLike = post?.likedBy?.find(
-				(usr: UserType) => usr?.id === currentUserId
-			);
-			if (isLike) {
-				setHasLiked(true);
-			} else {
-				setHasLiked(false);
-			}
-		}
-	}, [post]);
+	
+	function getIsLiked (): boolean {
+		const sessionData: {id: string, email: string, iat: number} = jwt(jwt_token);
+		const postLike = post?.likedBy.find(usr => usr.id === sessionData.id);
+		return postLike ? true : false
+	}
 
 	function handleNavigateToUserPage () {
 		if (currentUserId === user?.id) {
@@ -63,7 +56,7 @@ export function Post({ postId }: PostProps) {
 			<div className={styles.buttonsSection}>
 				<FontAwesomeIcon
 					icon={faHeart}
-					color={hasLiked ? 'var(--mainBlue)' : 'black'}
+					color={getIsLiked() ? 'var(--mainBlue)' : 'black'}
 					onClick={(_) =>
 						handleToggleLike({
 							postId: String(post?.id)

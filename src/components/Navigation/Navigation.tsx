@@ -37,7 +37,6 @@ export function Navigation() {
 					}
 				})
 			);
-			localStorage.removeItem('user');
 		} catch (e) {
 			console.error(e);
 		}

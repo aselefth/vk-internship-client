@@ -3,11 +3,12 @@ import { Loader } from '../../components/Loader/Loader';
 import { Post } from '../../components/Post/Post';
 import { useAppSelector } from '../../hooks/redux';
 import { useGetUserPostsQuery } from '../../store/Api/postsSlice';
+import { useGetMeQuery } from '../../store/Api/usersSlice';
 import styles from './AccountPage.module.scss';
 
 export function AccountPage() {
 	const id = useAppSelector((state) => state.userSlice.id);
-	const currentUser = useAppSelector((state) => state.userSlice);
+	const {data: currentUser} = useGetMeQuery(undefined);
 	const { data: posts, isLoading } = useGetUserPostsQuery(id);
 
 	return (
@@ -15,25 +16,25 @@ export function AccountPage() {
 			{isLoading && <Loader />}
 			<section className={styles.userInfo}>
 				<h1>
-					{currentUser.firstName} {currentUser.lastName}
+					{currentUser?.firstName} {currentUser?.lastName}
 				</h1>
 				<table>
 					<tbody>
 						<tr>
 							<td>Почта</td>
-							<td>{currentUser.email}</td>
+							<td>{currentUser?.email}</td>
 						</tr>
 						<tr>
 							<td>Возраст</td>
-							<td>{currentUser.age} лет</td>
+							<td>{currentUser?.age} лет</td>
 						</tr>
 						<tr>
 							<td>Город</td>
-							<td>{currentUser.city}</td>
+							<td>{currentUser?.city}</td>
 						</tr>
 						<tr>
 							<td>Университет</td>
-							<td>{currentUser.university}</td>
+							<td>{currentUser?.university}</td>
 						</tr>
 					</tbody>
 				</table>

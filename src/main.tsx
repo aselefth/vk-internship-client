@@ -2,10 +2,7 @@ import ReactDOM from 'react-dom/client';
 import './index.scss';
 import store from './store/store.ts';
 import { Provider } from 'react-redux';
-import {
-	RouterProvider,
-	createBrowserRouter,
-} from 'react-router-dom';
+import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import { RootLayout } from './layouts/RootLayout/RootLayout.tsx';
 import { SignInPage } from './pages/SignInPage/SignInPage.tsx';
 import { SignUpPage } from './pages/SignUpPage/SignUpPage.tsx';
@@ -16,6 +13,9 @@ import { ReceivedRequestsPage } from './pages/ReceivedRequestsPage/ReceivedReque
 import { AuthLayout } from './layouts/AuthLayout/AuthLayout.tsx';
 import { CookiesProvider } from 'react-cookie';
 import { UserPage } from './pages/UserPage/UserPage.tsx';
+import { ProtecredRoute } from './components/ProtectedRote.tsx';
+
+
 
 const router = createBrowserRouter([
 	{
@@ -23,24 +23,30 @@ const router = createBrowserRouter([
 		element: <RootLayout />,
 		children: [
 			{
-				path: '/friends',
-				element: <FriendsPage />
-			},
-			{
-				path: '/account',
-				element: <AccountPage />
-			},
-			{
-				path: '/feed',
-				element: <FeedPage />
-			},
-			{
-				path: '/requests',
-				element: <ReceivedRequestsPage />
-			},
-			{
-				path: '/users/:id',
-				element: <UserPage />
+				path: '/',
+				element: <ProtecredRoute />,
+				children: [
+					{
+						path: '/friends',
+						element: <FriendsPage />
+					},
+					{
+						path: '/account',
+						element: <AccountPage />
+					},
+					{
+						path: '/feed',
+						element: <FeedPage />
+					},
+					{
+						path: '/requests',
+						element: <ReceivedRequestsPage />
+					},
+					{
+						path: '/users/:id',
+						element: <UserPage />
+					}
+				]
 			}
 		]
 	},
@@ -59,7 +65,6 @@ const router = createBrowserRouter([
 		]
 	}
 ]);
-console.log(router);
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
 	<Provider store={store}>
