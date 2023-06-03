@@ -31,7 +31,7 @@ const postsSlice = mainApiSlice.injectEndpoints({
 			}),
 			invalidatesTags: ['App']
 		}),
-		createPost: build.mutation<any, Pick<PostType, 'post' | 'userId'>>({
+		createPost: build.mutation<{id: string}, Pick<PostType, 'post'>>({
 			query: (body) => ({
 				url: '/posts',
 				method: 'POST',

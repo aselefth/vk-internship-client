@@ -6,4 +6,5 @@ export type PostType = {
     userId: string;
     likedBy: UserType[];
     createdAt: string;
+    filePath: string;
 }

@@ -14,7 +14,8 @@ const friendsSlice = mainApiSlice.injectEndpoints({
                 url: 'friends',
                 method: 'DELETE',
                 body: {recieverId}
-            })
+            }),
+            invalidatesTags: ['App']
         })
     })
 })
