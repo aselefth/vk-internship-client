@@ -3,19 +3,20 @@ import './index.scss';
 import store from './store/store.ts';
 import { Provider } from 'react-redux';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
-import { RootLayout } from './layouts/RootLayout/RootLayout.tsx';
-import { SignInPage } from './pages/SignInPage/SignInPage.tsx';
-import { SignUpPage } from './pages/SignUpPage/SignUpPage.tsx';
-import { AccountPage } from './pages/AccountPage/AccountPage.tsx';
-import { FeedPage } from './pages/FeedPage/FeedPage.tsx';
-import { FriendsPage } from './pages/FriendsPage/FriendsPage.tsx';
-import { ReceivedRequestsPage } from './pages/ReceivedRequestsPage/ReceivedRequestsPage.tsx';
-import { AuthLayout } from './layouts/AuthLayout/AuthLayout.tsx';
 import { CookiesProvider } from 'react-cookie';
-import { UserPage } from './pages/UserPage/UserPage.tsx';
-import { ProtecredRoute } from './components/ProtectedRote.tsx';
-
-
+import {
+	UpdateUserPage,
+	ProtecredRoute,
+	UserPage,
+	AuthLayout,
+	ReceivedRequestsPage,
+	FriendsPage,
+	FeedPage,
+	AccountPage,
+	SignInPage,
+	SignUpPage,
+	RootLayout
+} from './index.ts';
 
 const router = createBrowserRouter([
 	{
@@ -45,6 +46,10 @@ const router = createBrowserRouter([
 					{
 						path: '/users/:id',
 						element: <UserPage />
+					},
+					{
+						path: '/account/update',
+						element: <UpdateUserPage />
 					}
 				]
 			}

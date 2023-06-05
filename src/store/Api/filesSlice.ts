@@ -2,9 +2,9 @@ import { mainApiSlice } from '.';
 
 const filesSlice = mainApiSlice.injectEndpoints({
 	endpoints: (build) => ({
-		upload: build.mutation<{ok: boolean}, { file: File; postId: string }>({
+		uploadPostFile: build.mutation<{ok: boolean}, { file: File; postId: string }>({
 			query: ({ file, postId }) => ({
-				url: 'files',
+				url: 'files/posts',
 				method: 'POST',
 				body: (() => {
                     const form = new FormData();
@@ -25,8 +25,21 @@ const filesSlice = mainApiSlice.injectEndpoints({
 				})()
 			}),
 			providesTags: ['App']
-		})
+		}),
+		uploadUserFile: build.mutation<{ok: boolean}, { file: File; postId: string }>({
+			query: ({ file, postId }) => ({
+				url: 'files/users',
+				method: 'POST',
+				body: (() => {
+                    const form = new FormData();
+                    form.append('file', file);
+                    form.append('postId', postId);
+                    return form;
+                })()
+			}),
+			invalidatesTags: ['App']
+		}),
 	})
 });
 
-export const { useGetFileQuery, useUploadMutation } = filesSlice;
+export const { useGetFileQuery, useUploadPostFileMutation, useUploadUserFileMutation } = filesSlice;

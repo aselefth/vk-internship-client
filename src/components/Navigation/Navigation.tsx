@@ -10,33 +10,16 @@ import styles from './Navigation.module.scss';
 import { useNavigate } from 'react-router-dom';
 import { useCurrentPath } from '../../hooks/useCurrentPath';
 import { useLazySignOutQuery } from '../../store/Api/authSlice';
-import { useAppDispatch } from '../../hooks/redux';
-import { setUser } from '../../store/userSlice';
 
 export function Navigation() {
 	const navigate = useNavigate();
 	const currentPath = useCurrentPath();
 	const [signOut] = useLazySignOutQuery();
-	const dispatch = useAppDispatch();
 
 	async function handleSignOut() {
 		try {
 			await signOut(undefined);
 			navigate('/auth/signin');
-			dispatch(
-				setUser({
-					user: {
-						id: '',
-						firstName: '',
-						lastName: '',
-						email: '',
-						password: '',
-						city: '',
-						university: '',
-						age: 0
-					}
-				})
-			);
 		} catch (e) {
 			console.error(e);
 		}

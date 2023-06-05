@@ -57,5 +57,24 @@
                 }
             }
 		}
+
+        .linkBtn {
+            padding: .5rem 1rem;
+            outline: none;
+            background-color: var(--mainBlue);
+            color: white;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            font-size: 1.2rem;
+            border: none;
+            border-radius: .5rem;
+            cursor: pointer;
+            transition: .15s background-color;
+
+            &:hover, &:active {
+                background-color: var(--mainBlueShadow);
+            }
+        }
 	}
 }

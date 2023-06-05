@@ -9,7 +9,6 @@ import {
 	useGetSentRequestsQuery,
 	useSendRequestMutation
 } from '../../store/Api/requestsSlice';
-import { useState, useEffect } from 'react';
 import { useGetFriendsQuery } from '../../store/Api/friendsSlice';
 import { Loader } from '../../components/Loader/Loader';
 
@@ -20,33 +19,25 @@ export function UserPage() {
 	const { data: sentRequests } = useGetSentRequestsQuery(undefined);
 	const { data: friends } = useGetFriendsQuery(undefined);
 	const [sendRequest] = useSendRequestMutation();
-	const [isRequest, setIsRequest] = useState(false);
-	const [isFriend, setIsFriend] = useState(false);
 
-	useEffect(() => {
-		if (sentRequests) {
-			const myReq = sentRequests.sentRequests.find(
-				(usr) => usr.id === user?.id
-			);
-			if (myReq) {
-				setIsRequest(true);
-			} else {
-				setIsRequest(false);
-			}
+	function getIsFriend (): boolean {
+		if (!friends || !user) {
+			return false;
 		}
-	}, [sentRequests]);
+		const friend = friends.find(usr => usr.id === user.id);
 
-	useEffect(() => {
-		if (friends) {
-			const friend = friends.find((frnd) => frnd.id === user?.id);
-			if (friend) {
-				setIsFriend(true);
-                setIsRequest(false);
-			} else {
-				setIsFriend(false);
-			}
+		return friend ? true : false;
+	}
+
+	function getIsRequestSent (): boolean {
+		if (!user || !sentRequests) {
+			return false;
 		}
-	}, [friends]);
+		const {sentRequests: requests} = sentRequests;
+		const req = requests.find(usr => usr.id === user.id);
+
+		return req ? true : false;
+	}
 
 	async function handleSendRequest(receiverId: string) {
 		try {
@@ -84,13 +75,13 @@ export function UserPage() {
 					</tbody>
 				</table>
 				<div className={styles.requestsSection}>
-					{!isFriend && (
+					{!getIsFriend() && (
 						<button
-							onClick={(_) => handleSendRequest(String(user?.id))}
-							disabled={isRequest}
+							onClick={() => handleSendRequest(String(user?.id))}
+							disabled={getIsRequestSent()}
 						>
 							<span>
-								{isRequest
+								{getIsRequestSent()
 									? 'запрос отправлен'
 									: 'отправить запрос'}
 							</span>

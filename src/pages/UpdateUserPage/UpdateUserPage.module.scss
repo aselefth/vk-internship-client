@@ -1,0 +1,107 @@
+.userInfo {
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 0.25rem;
+
+	table {
+		font-size: 1rem;
+		border-collapse: collapse;
+		margin: 25px 0;
+		tr:nth-child(2n + 1) {
+			background-color: rgba(120 160 255 / 0.3);
+			td:first-child {
+				border-right: 2px solid white;
+			}
+		}
+
+		tr:nth-child(2n) {
+			background-color: white;
+
+			td:first-child {
+				border-right: 2px solid rgba(120 160 255 / 0.3);
+			}
+		}
+
+		tr:last-child {
+			td:first-child {
+				border-radius: 0 0 0 0.5rem;
+			}
+			td:last-child {
+				border-radius: 0 0 0.5rem 0;
+			}
+		}
+
+		tr:first-child {
+			td:first-child {
+				border-radius: 0.5rem 0 0 0;
+			}
+			td:last-child {
+				border-radius: 0 0.5rem 0 0;
+			}
+		}
+
+		tr {
+			td {
+				padding: 0.5rem 1.5rem;
+				font-size: 1.2rem;
+			}
+		}
+	}
+
+	.buttonsSection {
+		display: flex;
+		align-items: center;
+		gap: 1.5rem;
+	}
+
+	.linkBtn {
+		padding: 0.5rem 1rem;
+		outline: none;
+		background-color: var(--mainBlue);
+		color: white;
+		display: flex;
+		align-items: center;
+		gap: 1rem;
+		font-size: 1.2rem;
+		border: none;
+		border-radius: 0.5rem;
+		cursor: pointer;
+		transition: 0.15s background-color;
+
+		&:hover,
+		&:active {
+			background-color: var(--mainBlueShadow);
+		}
+	}
+}
+.alertBtn {
+	padding: 0.5rem 1rem;
+	outline: none;
+	background-color: var(--mainBlue);
+	color: white;
+	display: flex;
+	align-items: center;
+	gap: 1rem;
+	font-size: 1.2rem;
+	border: none;
+	border-radius: 0.5rem;
+	cursor: pointer;
+	transition: 0.15s background-color;
+	background-color: var(--error);
+}
+
+.alertBtn:hover,
+.alertBtn:active {
+	background-color: var(-errorShadow);
+}
+
+input {
+    font-size: 1.25rem;
+    border: 2px solid var(--mainBlue);
+    border-radius: 0.5rem;
+    padding: 0.5rem;
+    min-width: 100%;
+    background-color: white;
+}

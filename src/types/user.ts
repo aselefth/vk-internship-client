@@ -11,6 +11,7 @@ export type UserType = {
 	university: string;
 	posts?: PostType[];
 	likedPosts?: PostType[];
+	filePath: string;
 };
 
 export type SignUpType = {

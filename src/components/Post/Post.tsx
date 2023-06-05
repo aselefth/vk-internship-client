@@ -26,7 +26,6 @@ export function Post({ postId }: PostProps) {
 	const navigate = useNavigate();
 	const [imgUrl, setImgUrl] = useState('');
 
-	console.log(post);
 
 	useEffect(() => {
 		async function getImg(postId: string) {
@@ -82,7 +81,7 @@ export function Post({ postId }: PostProps) {
 			</h2>
 			<h3>{post && getDateString(`${post?.createdAt}`)}</h3>
 			<p>{post?.post}</p>
-			{imgUrl && <img src={imgUrl}/>}
+			{imgUrl && <img src={imgUrl} />}
 			<div className={styles.buttonsSection}>
 				<FontAwesomeIcon
 					icon={faHeart}
@@ -98,3 +97,4 @@ export function Post({ postId }: PostProps) {
 		</div>
 	);
 }
+

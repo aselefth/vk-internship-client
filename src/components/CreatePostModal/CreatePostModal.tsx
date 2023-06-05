@@ -2,7 +2,7 @@ import { useState } from 'react';
 import styles from './CreatePostModal.module.scss';
 import { useCreatePostMutation } from '../../store/Api/postsSlice';
 import { PostType } from '../../types/post';
-import { useUploadMutation } from '../../store/Api/filesSlice';
+import { useUploadPostFileMutation } from '../../store/Api/filesSlice';
 import { useNavigate } from 'react-router-dom';
 
 type PostData = {
@@ -16,7 +16,7 @@ export function CreatePostModal() {
 		file: null
 	});
 	const [addPost] = useCreatePostMutation();
-	const [addFile] = useUploadMutation();
+	const [addFile] = useUploadPostFileMutation();
 	const navigate = useNavigate();
 
 	async function handleCreatePost(postBody: Pick<PostType, 'post'>) {
@@ -26,7 +26,7 @@ export function CreatePostModal() {
 				navigate('/feed');
 			}
 
-			const response = await fetch('http://localhost:3001/api/files', {
+			const response = await fetch('http://localhost:3001/api/files/posts', {
 				method: 'POST',
 				body: (() => {
 					const form = new FormData();

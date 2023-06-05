@@ -25,7 +25,7 @@ const authSlice = mainApiSlice.injectEndpoints({
 			query: () => ({
 				url: '/auth/signout'
 			}),
-			providesTags: ['App']
+			providesTags: ['App', 'Posts']
 		})
 	})
 });

@@ -8,20 +8,21 @@ const postsSlice = mainApiSlice.injectEndpoints({
 				url: 'posts',
 				method: 'GET'
 			}),
-			providesTags: ['App']
+			providesTags: ['Posts']
 		}),
 		getPostById: build.query<PostType, string>({
 			query: (postId) => ({
 				url: `posts/${postId}`,
 				method: 'GET'
 			}),
-			providesTags: ['App']
+			providesTags: (res, err, arg) =>
+				res ? [{ type: 'Posts' as const, id: res.id }] : ['Posts']
 		}),
 		getUserPosts: build.query<PostType[], string>({
 			query: (userId) => ({
 				url: `/posts/userposts/${userId}`
 			}),
-			providesTags: ['App']
+			providesTags: ['Posts']
 		}),
 		likePost: build.mutation<any, { postId: string }>({
 			query: (body) => ({
@@ -29,15 +30,15 @@ const postsSlice = mainApiSlice.injectEndpoints({
 				method: 'POST',
 				body
 			}),
-			invalidatesTags: ['App']
+			invalidatesTags: (res, err, arg) => [{type: 'Posts', id: arg.postId}]
 		}),
-		createPost: build.mutation<{id: string}, Pick<PostType, 'post'>>({
+		createPost: build.mutation<{ id: string }, Pick<PostType, 'post'>>({
 			query: (body) => ({
 				url: '/posts',
 				method: 'POST',
 				body
 			}),
-			invalidatesTags: ['App']
+			invalidatesTags: ['Posts']
 		})
 	})
 });
