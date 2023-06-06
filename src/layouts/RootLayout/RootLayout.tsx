@@ -1,18 +1,16 @@
 import { Outlet } from 'react-router-dom';
-import { TopBar } from '../../components/TopBar/TopBar';
-import styles from './RootLayout.module.scss';
 import { checkAuth } from '../../utils/checkAuth';
 import { Navigation } from '../../components/Navigation/Navigation';
 
 export function RootLayout() {
-
 	checkAuth();
 
 	return (
-		<main className={styles.main}>
-			<TopBar />
+		<main className='max-w-1200 mx-auto grid lg:grid-cols-[350px_1fr_350px]'>
 			<Navigation />
-			<Outlet />
+			<div className='w-full border-gray-600 border-r-[1px] border-l-[1px] relative min-h-[100vh] pb-20'>
+				<Outlet />
+			</div>
 		</main>
 	);
 }

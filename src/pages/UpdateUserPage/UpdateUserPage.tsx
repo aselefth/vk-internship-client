@@ -30,13 +30,27 @@ export function UpdateUserPage() {
 
 	async function handleUpdateMe() {
 		try {
-			const {ok} = await updateMe(data).unwrap();
+			const { ok } = await updateMe(data).unwrap();
 			if (!ok) {
 				console.log('couldnt update user');
 				return;
 			}
+
 			if (file === null) {
 				navigate('/account');
+				return;
+			}
+			if (me?.filePath) {
+				console.log('FILE PATH', me?.filePath)
+				await fetch('http://localhost:3001/api/files/', {
+					method: 'DELETE',
+					credentials: 'include',
+					mode: 'cors',
+					body: JSON.stringify({ filePath: me?.filePath }),
+					headers: {
+						'Content-Type': 'application/json'
+					}
+				});
 			}
 
 			const res = await fetch('http://localhost:3001/api/files/users', {
@@ -49,19 +63,17 @@ export function UpdateUserPage() {
 				})()
 			});
 
-			const {ok: isFileUploaded}: {ok: boolean} = await res.json();
+			const { ok: isFileUploaded }: { ok: boolean } = await res.json();
 
 			if (isFileUploaded) {
 				navigate('/account');
 			}
-			
 		} catch (e) {
 			console.log(e);
 		}
 	}
 
 	useEffect(() => {
-		console.log(me);
 		if (me) {
 			setData({
 				email: me.email,

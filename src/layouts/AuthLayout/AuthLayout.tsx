@@ -1,10 +1,9 @@
 import { Outlet } from "react-router-dom";
 import { TopBar } from "../../components/TopBar/TopBar";
-import styles from './AuthLayout.module.scss';
 
 export function AuthLayout () {
     return (
-        <main className={styles.main}>
+        <main className='mt-20 max-w-1200 mx-auto'>
             <TopBar />
             <Outlet />
         </main>

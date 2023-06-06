@@ -2,15 +2,12 @@ import {
 	useGetPostByIdQuery,
 	useLikePostMutation
 } from '../../store/Api/postsSlice';
-import styles from './Post.module.scss';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faHeart } from '@fortawesome/free-solid-svg-icons';
 import { useGetUserByIdQuery } from '../../store/Api/usersSlice';
 import jwt from 'jwt-decode';
-import { getDateString } from '../../utils/getDate';
 import { useNavigate } from 'react-router-dom';
 import { useCookies } from 'react-cookie';
 import { useEffect, useState } from 'react';
+import { PostUI } from './PostUI';
 
 interface PostProps {
 	postId: string;
@@ -25,7 +22,6 @@ export function Post({ postId }: PostProps) {
 	});
 	const navigate = useNavigate();
 	const [imgUrl, setImgUrl] = useState('');
-
 
 	useEffect(() => {
 		async function getImg(postId: string) {
@@ -75,26 +71,13 @@ export function Post({ postId }: PostProps) {
 	}
 
 	return (
-		<div className={styles.post}>
-			<h2 onClick={(_) => handleNavigateToUserPage()}>
-				{user?.firstName} {user?.lastName}
-			</h2>
-			<h3>{post && getDateString(`${post?.createdAt}`)}</h3>
-			<p>{post?.post}</p>
-			{imgUrl && <img src={imgUrl} />}
-			<div className={styles.buttonsSection}>
-				<FontAwesomeIcon
-					icon={faHeart}
-					color={getIsLiked() ? 'var(--mainBlue)' : 'black'}
-					onClick={(_) =>
-						handleToggleLike({
-							postId: String(post?.id)
-						})
-					}
-				/>
-				<span>{post?.likedBy?.length}</span>
-			</div>
-		</div>
+		<PostUI
+			handleNavigateToUserPage={handleNavigateToUserPage}
+			post={post}
+			user={user}
+			handleToggleLike={handleToggleLike}
+			getIsLiked={getIsLiked}
+			imgUrl={imgUrl}
+		/>
 	);
 }
-

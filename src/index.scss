@@ -1,18 +1,21 @@
-@import url('https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 *, *::before, *::after {
     padding: 0;
     margin: 0;
     box-sizing: border-box;
-    font-family: 'Ubuntu';
+    font-family: 'Inter';
 }
 
 button, input, ul, li {
     outline: transparent;
     text-decoration: none;
     list-style: none;
-    font-family: 'Ubuntu';
+    font-family: 'Inter';
 }
 
 :root {
@@ -22,13 +25,15 @@ button, input, ul, li {
     --error: rgb(255 130 120);
     --errorShadow: rgb(235 110 100);
     --mainBg: rgb(240 240 245);
+    color-scheme: dark;
+    background-color: black;
 }
+
 
 html {
     height: 100%;
 }
 
 body {
-    background-color: var(--mainBg);
     height: 100vh;
 }

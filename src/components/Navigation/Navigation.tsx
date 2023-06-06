@@ -6,10 +6,17 @@ import {
 	faSignsPost
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import styles from './Navigation.module.scss';
 import { useNavigate } from 'react-router-dom';
 import { useCurrentPath } from '../../hooks/useCurrentPath';
 import { useLazySignOutQuery } from '../../store/Api/authSlice';
+
+const routes = [
+	{ path: 'account', name: 'Аккаунт', icon: faPassport },
+	{ path: 'feed', name: 'Лента', icon: faNewspaper },
+	{ path: 'friends', name: 'Друзья', icon: faUserGroup },
+	{ path: 'requests', name: 'Запросы', icon: faSignsPost },
+	{ path: 'signout', name: 'Выйти', icon: faDoorOpen }
+];
 
 export function Navigation() {
 	const navigate = useNavigate();
@@ -26,47 +33,25 @@ export function Navigation() {
 	}
 
 	return (
-		<aside className={styles.aside}>
-			<div
-				className={`${styles.navLink} ${
-					currentPath === 'account' && styles.active
-				}`}
-				onClick={(_) => navigate('/account')}
-			>
-				<FontAwesomeIcon icon={faPassport} />
-				<span>аккаунт</span>
-			</div>
-			<div
-				className={`${styles.navLink} ${
-					currentPath === 'feed' && styles.active
-				}`}
-				onClick={(_) => navigate('/feed')}
-			>
-				<FontAwesomeIcon icon={faNewspaper} />
-				<span>лента</span>
-			</div>
-			<div
-				className={`${styles.navLink} ${
-					currentPath === 'friends' && styles.active
-				}`}
-				onClick={(_) => navigate('/friends')}
-			>
-				<FontAwesomeIcon icon={faUserGroup} />
-				<span>друзья</span>
-			</div>
-			<div
-				className={`${styles.navLink} ${
-					currentPath === 'requests' && styles.active
-				}`}
-				onClick={(_) => navigate('/requests')}
-			>
-				<FontAwesomeIcon icon={faSignsPost} />
-				<span>запросы</span>
-			</div>
-			<div className={styles.navLink} onClick={handleSignOut}>
-				<FontAwesomeIcon icon={faDoorOpen} />
-				<span>выйти</span>
-			</div>
+		<aside className='flex flex-col items-end mx-auto pt-4 w-full pr-2'>
+			<nav className='flex flex-col items-start fixed'>
+				{routes.map((route) => (
+					<div
+						key={route.path}
+						className={`text-lg text-white flex items-center gap-4 px-4 py-2 hover:bg-purple-900 
+						transition duration-[.2s] rounded-[1000px] hover:cursor-pointer
+					${currentPath === route.path && 'bg'}`}
+						onClick={
+							route.path === 'signout'
+								? handleSignOut
+								: () => navigate(`/${route.path}`)
+						}
+					>
+						<FontAwesomeIcon icon={route.icon} />
+						<span>{route.name}</span>
+					</div>
+				))}
+			</nav>
 		</aside>
 	);
 }

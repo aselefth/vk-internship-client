@@ -24,7 +24,9 @@ export function CreatePostModal() {
 			const { id: postId } = await addPost(postBody).unwrap();
 			if (postData.file === null) {
 				navigate('/feed');
+				return;
 			}
+
 
 			const response = await fetch('http://localhost:3001/api/files/posts', {
 				method: 'POST',
