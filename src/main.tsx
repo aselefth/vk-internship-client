@@ -15,7 +15,9 @@ import {
 	AccountPage,
 	SignInPage,
 	SignUpPage,
-	RootLayout
+	RootLayout,
+	UserLikedPage,
+	UserPostsPage
 } from './index.ts';
 
 const router = createBrowserRouter([
@@ -33,7 +35,17 @@ const router = createBrowserRouter([
 					},
 					{
 						path: '/account',
-						element: <AccountPage />
+						element: <AccountPage />,
+						children: [
+							{
+								path: '/account/posts',
+								element: <UserPostsPage />
+							},
+							{
+								path: '/account/liked',
+								element: <UserLikedPage />
+							}
+						]
 					},
 					{
 						path: '/feed',

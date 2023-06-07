@@ -22,6 +22,22 @@ export function Post({ postId }: PostProps) {
 	});
 	const navigate = useNavigate();
 	const [imgUrl, setImgUrl] = useState('');
+	const [usrImg, setUsrImg] = useState('');
+
+	useEffect(() => {
+		async function getImg(userId: string) {
+			const res = await fetch(
+				'http://localhost:3001/api/files?userId=' + userId
+			);
+			const data = new Uint8Array(await res.arrayBuffer());
+			const blob = new Blob([data], { type: 'image/png' });
+			const img = window.webkitURL.createObjectURL(blob);
+			setUsrImg(img);
+		}
+		if (user && user.filePath) {
+			getImg(user.id);
+		}
+	}, [user]);
 
 	useEffect(() => {
 		async function getImg(postId: string) {
@@ -78,6 +94,7 @@ export function Post({ postId }: PostProps) {
 			handleToggleLike={handleToggleLike}
 			getIsLiked={getIsLiked}
 			imgUrl={imgUrl}
+			usrImg={usrImg}
 		/>
 	);
 }

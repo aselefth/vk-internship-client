@@ -8,4 +8,6 @@ export { FriendsPage } from './pages/FriendsPage/FriendsPage.tsx';
 export { ReceivedRequestsPage } from './pages/ReceivedRequestsPage/ReceivedRequestsPage.tsx';
 export { RootLayout } from './layouts/RootLayout/RootLayout.tsx';
 export { AuthLayout } from './layouts/AuthLayout/AuthLayout.tsx';
-export  {UpdateUserPage} from './pages/UpdateUserPage/UpdateUserPage.tsx'
+export { UpdateUserPage } from './pages/UpdateUserPage/UpdateUserPage.tsx';
+export {UserPostsPage} from './pages/UserPostsPage.tsx';
+export {UserLikedPage} from './pages/UserLikedPosts.tsx';

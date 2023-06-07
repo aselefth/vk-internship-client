@@ -1,20 +1,25 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { CreatePostModal } from '../../components/CreatePostModal/CreatePostModal';
-import { Loader } from '../../components/Loader/Loader';
 import { Post } from '../../components/Post/Post';
 import { useAppSelector } from '../../hooks/redux';
 import { useGetUserPostsQuery } from '../../store/Api/postsSlice';
 import { useGetMeQuery } from '../../store/Api/usersSlice';
-import styles from './AccountPage.module.scss';
-import { faPen } from '@fortawesome/free-solid-svg-icons';
-import { useNavigate } from 'react-router-dom';
+import {
+	faEnvelope,
+	faPassport,
+	faLocationDot,
+	faUniversity,
+	faPen
+} from '@fortawesome/free-solid-svg-icons';
 import { useEffect, useState } from 'react';
+import { getAgeString } from '../../utils/getAgeString';
+import { AccountLayout } from './AccountLayout';
+import { useParams } from 'react-router-dom';
 
 export function AccountPage() {
+	const params = useParams();
 	const id = useAppSelector((state) => state.userSlice.id);
-	const { data: currentUser } = useGetMeQuery(undefined);
-	const { data: posts, isLoading } = useGetUserPostsQuery(id);
-	const navigate = useNavigate();
+	const { data: me } = useGetMeQuery(undefined);
+	const { data: posts } = useGetUserPostsQuery(id);
 	const [imgUrl, setImgUrl] = useState('');
 
 	useEffect(() => {
@@ -27,49 +32,66 @@ export function AccountPage() {
 			const img = window.webkitURL.createObjectURL(blob);
 			setImgUrl(img);
 		}
-		if (currentUser && currentUser.filePath) {
-			getImg(currentUser.id);
+		if (me && me.filePath) {
+			getImg(me.id);
 		}
-	}, [currentUser]);
+	}, [me]);
 
 	return (
-		<div className={styles.accountPage}>
-			{isLoading && <Loader />}
-			<section className={styles.userInfo}>
-				{imgUrl && <img src={imgUrl} alt={currentUser?.firstName as string} />}
-				<h1>
-					{currentUser?.firstName} {currentUser?.lastName}
-				</h1>
-				<table>
-					<tbody>
-						<tr>
-							<td>Почта</td>
-							<td>{currentUser?.email}</td>
-						</tr>
-						<tr>
-							<td>Возраст</td>
-							<td>{currentUser?.age} лет</td>
-						</tr>
-						<tr>
-							<td>Город</td>
-							<td>{currentUser?.city}</td>
-						</tr>
-						<tr>
-							<td>Университет</td>
-							<td>{currentUser?.university}</td>
-						</tr>
-					</tbody>
-				</table>
-				<button
-					className={styles.linkBtn}
-					onClick={() => navigate('/account/update')}
-				>
-					<span>Изменить</span>
-					<FontAwesomeIcon icon={faPen} />
-				</button>
-			</section>
+		<div className='flex flex-col items-center w-full min-h-full'>
+			<h1
+				className='sticky top-0 left-0 w-full flex items-center backdrop-filter backdrop-blur-sm bg-opacity-80
+			justify-start p-4 bg-black text-white z-50 text-lg font-bold'
+			>
+				{me?.firstName} {me?.lastName}
+			</h1>
+			<div className='flex flex-col items-center w-full gap-2'>
+				<div className='w-full h-40 bg-gradient-to-t from-gray-700'></div>
+				<div className='p-4 w-full flex flex-col text-white gap-2 relative'>
+					<div className='w-32 h-32 rounded-[50%] border-black border-4 absolute left-4 top-[-4rem]'>
+						{imgUrl ? (
+							<img
+								src={imgUrl}
+								className='w-full h-full rounded-[50%] object-cover'
+							/>
+						) : (
+							<span className='text-lg'>
+								{me?.firstName[0]}
+								{me?.lastName[0]}
+							</span>
+						)}
+					</div>
+					<div className='flex items-center gap-4 justify-end'>
+						<button className='btn btn-primary'>
+							<FontAwesomeIcon icon={faPen} /> <span>Редактировать</span>
+						</button>
+						<button className='btn btn-primary'>Подписаться</button>
+					</div>
+					<p className='text-xl font-bold'>
+						{me?.firstName} {me?.lastName}
+					</p>
+					<article className='text-gray-300 font-light flex items-center gap-4 flex-wrap'>
+						<p className='flex items-center gap-1'>
+							<FontAwesomeIcon icon={faLocationDot} />
+							<span>{me?.city}</span>
+						</p>
+						<p className='flex items-center gap-1'>
+							<FontAwesomeIcon icon={faUniversity} />
+							<span>{me?.university}</span>
+						</p>
+						<p className='flex items-center gap-1'>
+							<FontAwesomeIcon icon={faPassport} />
+							<span>{getAgeString(me?.age)}</span>
+						</p>
+					</article>
+					<article className='text-gray-300 font-light flex items-center gap-4 flex-wrap'>
+						<p><span className='font-bold'>{me?.recievedRequests.length}</span> подписчиков</p>
+						<p><span className='font-bold'>{me?.sentRequests.length}</span> подписок</p>
+					</article>
+				</div>
+				<AccountLayout />
+			</div>
 
-			<CreatePostModal />
 			{posts &&
 				posts.map((post) => <Post key={post.id} postId={post?.id} />)}
 		</div>

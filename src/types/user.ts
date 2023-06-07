@@ -12,6 +12,8 @@ export type UserType = {
 	posts?: PostType[];
 	likedPosts?: PostType[];
 	filePath: string;
+	recievedRequests: UserType[];
+	sentRequests: UserType[];
 };
 
 export type SignUpType = {

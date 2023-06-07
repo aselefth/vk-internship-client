@@ -7,20 +7,18 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useNavigate } from 'react-router-dom';
-import { useCurrentPath } from '../../hooks/useCurrentPath';
 import { useLazySignOutQuery } from '../../store/Api/authSlice';
 
 const routes = [
-	{ path: 'account', name: 'Аккаунт', icon: faPassport },
+	{ path: 'account/posts', name: 'Аккаунт', icon: faPassport },
 	{ path: 'feed', name: 'Лента', icon: faNewspaper },
 	{ path: 'friends', name: 'Друзья', icon: faUserGroup },
 	{ path: 'requests', name: 'Запросы', icon: faSignsPost },
-	{ path: 'signout', name: 'Выйти', icon: faDoorOpen }
+	{ path: 'signout', name: 'Выход', icon: faDoorOpen }
 ];
 
 export function Navigation() {
 	const navigate = useNavigate();
-	const currentPath = useCurrentPath();
 	const [signOut] = useLazySignOutQuery();
 
 	async function handleSignOut() {
@@ -39,8 +37,7 @@ export function Navigation() {
 					<div
 						key={route.path}
 						className={`text-lg text-white flex items-center gap-4 px-4 py-2 hover:bg-purple-900 
-						transition duration-[.2s] rounded-[1000px] hover:cursor-pointer
-					${currentPath === route.path && 'bg'}`}
+						transition duration-[.2s] rounded-[1000px] hover:cursor-pointer`}
 						onClick={
 							route.path === 'signout'
 								? handleSignOut
