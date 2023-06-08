@@ -2,28 +2,32 @@ import { useState } from 'react';
 import { Outlet } from 'react-router-dom';
 import { useNavigate, useLocation } from 'react-router-dom';
 
-export function AccountLayout() {
+export function AccountLayout(params: { userId: string }) {
 	const navigate = useNavigate();
 	const location = useLocation();
-	console.log(location.pathname);
-	const [tab, setTab] = useState<'/account/posts' | '/account/liked'>(location.pathname as '/account/posts' | '/account/liked');
+
+	const [tab, setTab] = useState(location.pathname.split('/')[2]);
 	return (
 		<>
 			<div className='tabs w-full'>
 				<span
-					className={`tab tab-bordered w-1/2 text-lg ${tab === '/account/posts' && 'tab-active'}`}
+					className={`tab tab-bordered w-1/2 text-lg ${
+						tab === 'posts' && 'tab-active'
+					}`}
 					onClick={() => {
-						setTab('/account/posts');
-						navigate('/account/posts');
+						setTab('posts');
+						navigate(`/${params.userId}/posts`);
 					}}
 				>
 					Публикации
 				</span>
 				<span
-					className={`tab tab-bordered w-1/2 text-lg ${tab === '/account/liked' && 'tab-active'}`}
+					className={`tab tab-bordered w-1/2 text-lg ${
+						tab === 'liked' && 'tab-active'
+					}`}
 					onClick={() => {
-						setTab('/account/liked');
-						navigate('/account/liked');
+						setTab('liked');
+						navigate(`/${params.userId}/liked`);
 					}}
 				>
 					Понравившееся

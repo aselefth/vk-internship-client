@@ -3,22 +3,21 @@ import {
 	useLikePostMutation
 } from '../../store/Api/postsSlice';
 import { useGetUserByIdQuery } from '../../store/Api/usersSlice';
-import jwt from 'jwt-decode';
 import { useNavigate } from 'react-router-dom';
-import { useCookies } from 'react-cookie';
 import { useEffect, useState } from 'react';
 import { PostUI } from './PostUI';
+import { getSession } from '../../utils/getSession';
 
 interface PostProps {
 	postId: string;
 }
 
 export function Post({ postId }: PostProps) {
-	const [{ jwt_token }] = useCookies(['jwt_token']);
+	const session = getSession();
 	const { data: post } = useGetPostByIdQuery(postId);
 	const [likePost] = useLikePostMutation();
 	const { data: user } = useGetUserByIdQuery(String(post?.userId), {
-		skip: !getSession().id
+		skip: !session?.id
 	});
 	const navigate = useNavigate();
 	const [imgUrl, setImgUrl] = useState('');
@@ -54,28 +53,15 @@ export function Post({ postId }: PostProps) {
 		}
 	}, [post]);
 
-	function getSession() {
-		const sessionData: { id: string; email: string; iat: number } =
-			jwt(jwt_token);
-
-		return sessionData;
-	}
-
 	function getIsLiked(): boolean {
 		const postLike = post?.likedBy.find(
-			(usr) => usr.id === getSession().id
+			(usr) => usr.id === session?.id
 		);
 		return postLike ? true : false;
 	}
 
 	function handleNavigateToUserPage() {
-		const sessionData: { id: string; email: string; iat: number } =
-			jwt(jwt_token);
-		if (sessionData.id === user?.id) {
-			navigate('/account');
-		} else {
-			navigate(`/users/${user?.id}`);
-		}
+		navigate('/' + user?.id + '/posts');
 	}
 
 	async function handleToggleLike(body: { postId: string }) {

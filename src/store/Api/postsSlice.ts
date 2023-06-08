@@ -40,9 +40,9 @@ const postsSlice = mainApiSlice.injectEndpoints({
 			}),
 			invalidatesTags: ['Posts']
 		}),
-		getLiked: build.query<PostType[], undefined>({
-			query: () => ({
-				url: '/posts/me/liked'
+		getLiked: build.query<PostType[], string>({
+			query: (id) => ({
+				url: `/posts/users/liked/${id}`,
 			}),
 			providesTags: ['Posts']
 		})

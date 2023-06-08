@@ -7,7 +7,6 @@ import { CookiesProvider } from 'react-cookie';
 import {
 	UpdateUserPage,
 	ProtecredRoute,
-	UserPage,
 	AuthLayout,
 	ReceivedRequestsPage,
 	FriendsPage,
@@ -34,15 +33,15 @@ const router = createBrowserRouter([
 						element: <FriendsPage />
 					},
 					{
-						path: '/account',
+						path: '/:id',
 						element: <AccountPage />,
 						children: [
 							{
-								path: '/account/posts',
+								path: '/:id/posts',
 								element: <UserPostsPage />
 							},
 							{
-								path: '/account/liked',
+								path: '/:id/liked',
 								element: <UserLikedPage />
 							}
 						]
@@ -52,15 +51,11 @@ const router = createBrowserRouter([
 						element: <FeedPage />
 					},
 					{
-						path: '/requests',
+						path: '/subscribed',
 						element: <ReceivedRequestsPage />
 					},
 					{
-						path: '/users/:id',
-						element: <UserPage />
-					},
-					{
-						path: '/account/update',
+						path: '/update',
 						element: <UpdateUserPage />
 					}
 				]

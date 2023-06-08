@@ -8,18 +8,26 @@ import {
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useNavigate } from 'react-router-dom';
 import { useLazySignOutQuery } from '../../store/Api/authSlice';
+import { getSession } from '../../utils/getSession';
 
-const routes = [
-	{ path: 'account/posts', name: 'Аккаунт', icon: faPassport },
-	{ path: 'feed', name: 'Лента', icon: faNewspaper },
-	{ path: 'friends', name: 'Друзья', icon: faUserGroup },
-	{ path: 'requests', name: 'Запросы', icon: faSignsPost },
-	{ path: 'signout', name: 'Выход', icon: faDoorOpen }
-];
 
 export function Navigation() {
+	const session = getSession();
 	const navigate = useNavigate();
 	const [signOut] = useLazySignOutQuery();
+	if (!session) {
+		navigate('/auth/signin');
+	}
+	const routes = [
+		{
+			path: `${session?.id}/posts`,
+			name: 'Моя страница',
+			icon: faPassport
+		},
+		{ path: 'feed', name: 'Лента', icon: faNewspaper },
+		{ path: 'subscribed', name: 'Подписки', icon: faSignsPost },
+		{ path: 'signout', name: 'Выход', icon: faDoorOpen }
+	];
 
 	async function handleSignOut() {
 		try {

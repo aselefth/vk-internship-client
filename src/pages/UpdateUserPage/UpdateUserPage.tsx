@@ -4,6 +4,7 @@ import styles from './UpdateUserPage.module.scss';
 import { faCheck, faXmark } from '@fortawesome/free-solid-svg-icons';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { UpdateUserUI } from './UpdateUserUI';
 
 export type UpdateUserDto = {
 	email: string;
@@ -29,6 +30,7 @@ export function UpdateUserPage() {
 	const navigate = useNavigate();
 
 	async function handleUpdateMe() {
+		console.log('UPDATE ME')
 		try {
 			const { ok } = await updateMe(data).unwrap();
 			if (!ok) {
@@ -37,11 +39,10 @@ export function UpdateUserPage() {
 			}
 
 			if (file === null) {
-				navigate('/account');
+				navigate(`/${me?.id}/posts`);
 				return;
 			}
 			if (me?.filePath) {
-				console.log('FILE PATH', me?.filePath)
 				await fetch('http://localhost:3001/api/files/', {
 					method: 'DELETE',
 					credentials: 'include',
@@ -66,7 +67,7 @@ export function UpdateUserPage() {
 			const { ok: isFileUploaded }: { ok: boolean } = await res.json();
 
 			if (isFileUploaded) {
-				navigate('/account');
+				navigate(`/${me?.id}/posts`);
 			}
 		} catch (e) {
 			console.log(e);
@@ -86,125 +87,5 @@ export function UpdateUserPage() {
 		}
 	}, [me]);
 
-	return (
-		<section className={styles.userInfo}>
-			<h1>Изменить данные</h1>
-			<table>
-				<tbody>
-					<tr>
-						<td>Имя</td>
-						<td>
-							<input
-								type='text'
-								value={data?.firstName}
-								onChange={(e) =>
-									setData((prev) => ({
-										...prev,
-										firstName: e.target.value
-									}))
-								}
-							/>
-						</td>
-					</tr>
-					<tr>
-						<td>Фамилия</td>
-						<td>
-							<input
-								type='text'
-								value={data?.lastName}
-								onChange={(e) =>
-									setData((prev) => ({
-										...prev,
-										lastName: e.target.value
-									}))
-								}
-							/>
-						</td>
-					</tr>
-					<tr>
-						<td>Почта</td>
-						<td>
-							<input
-								type='text'
-								value={data?.email}
-								onChange={(e) =>
-									setData((prev) => ({
-										...prev,
-										email: e.target.value
-									}))
-								}
-							/>
-						</td>
-					</tr>
-					<tr>
-						<td>Возраст</td>
-						<td>
-							<input
-								type='number'
-								value={data?.age}
-								onChange={(e) =>
-									setData((prev) => ({
-										...prev,
-										age: Number(e.target.value)
-									}))
-								}
-							/>
-						</td>
-					</tr>
-					<tr>
-						<td>Город</td>
-						<td>
-							<input
-								type='text'
-								value={data?.city}
-								onChange={(e) =>
-									setData((prev) => ({
-										...prev,
-										city: e.target.value
-									}))
-								}
-							/>
-						</td>
-					</tr>
-					<tr>
-						<td>Университет</td>
-						<td>
-							<input
-								type='text'
-								value={data?.university}
-								onChange={(e) =>
-									setData((prev) => ({
-										...prev,
-										university: e.target.value
-									}))
-								}
-							/>
-						</td>
-					</tr>
-					<tr>
-						<td>Изображение</td>
-						<td>
-							<input
-								type='file'
-								onChange={(e) => setFile(e.target?.files![0])}
-							/>
-						</td>
-					</tr>
-				</tbody>
-			</table>
-			<div className={styles.buttonsSection}>
-				<button
-					className={styles.alertBtn}
-					onClick={() => navigate('/account')}
-				>
-					<span>Отменить</span>
-					<FontAwesomeIcon icon={faXmark} />
-				</button>
-				<button className={styles.linkBtn} onClick={handleUpdateMe}>
-					<span>Сохранить</span>
-					<FontAwesomeIcon icon={faCheck} />
-				</button>
-			</div>
-		</section>
-	);
+	return <UpdateUserUI handleUpdateMe={handleUpdateMe} data={data} setData={setData} setFile={setFile} id={me?.id}/>
 }

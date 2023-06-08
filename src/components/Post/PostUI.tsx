@@ -23,9 +23,9 @@ export function PostUI({
 	handleNavigateToUserPage,
 	usrImg
 }: UIProps) {
-
 	return (
-		<div className='w-full flex gap-4 px-4 py-2 border-b-[1px] border-gray-500 last:border-b-0 hover:bg-zinc-950 cursor-pointer'>
+		<div className='w-full flex gap-4 px-4 py-2 border-b-[1px] border-gray-500 
+		last:border-b-0 hover:bg-zinc-950 cursor-pointer'>
 			<div className={['avatar', !postImg && 'placeholder'].join(' ')}>
 				<div className='w-14 h-14 rounded-[50%] border-purple-800 border-4'>
 					{usrImg ? (

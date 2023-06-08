@@ -1,10 +1,8 @@
 import { Outlet } from 'react-router-dom';
-import { checkAuth } from '../../utils/checkAuth';
 import { Navigation } from '../../components/Navigation/Navigation';
 
 export function RootLayout() {
-	checkAuth();
-
+	
 	return (
 		<main className='max-w-1200 mx-auto grid lg:grid-cols-[350px_1fr_350px]'>
 			<Navigation />

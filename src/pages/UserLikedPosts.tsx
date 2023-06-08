@@ -1,28 +1,30 @@
-import { Post } from '../components/Post/Post';
-import { PostLoader } from '../components/PostLoader';
-import { useGetLikedQuery } from '../store/Api/postsSlice';
+import { useParams } from "react-router-dom";
+import { Post } from "../components/Post/Post";
+import { PostLoader } from "../components/PostLoader";
+import { useGetLikedQuery } from "../store/Api/postsSlice";
 
 export function UserLikedPage() {
-	const { data: posts, isLoading } = useGetLikedQuery(undefined);
+   const { id } = useParams<{ id: string }>();
+   const { data: likedPosts, isLoading } = useGetLikedQuery(String(id));
 
-	console.log(posts)
-
-	console.log(posts);
-	return (
-		<>
-			{isLoading && (
-				<>
-					<PostLoader />
-					<PostLoader />
-					<PostLoader />
-					<PostLoader />
-					<PostLoader />
-				</>
-			)}
-			{posts &&
-				posts?.map((post) => (
-					<Post key={String(post.id)} postId={String(post.id)} />
-				))}
-		</>
-	);
+   return (
+      <>
+         {isLoading && (
+            <>
+               <PostLoader />
+               <PostLoader />
+               <PostLoader />
+               <PostLoader />
+               <PostLoader />
+            </>
+         )}
+         {likedPosts &&
+            likedPosts?.map((post) => (
+               <Post
+                  key={String(post.id) + Math.random()}
+                  postId={String(post.id)}
+               />
+            ))}
+      </>
+   );
 }
