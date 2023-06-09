@@ -45,6 +45,12 @@ const postsSlice = mainApiSlice.injectEndpoints({
 				url: `/posts/users/liked/${id}`,
 			}),
 			providesTags: ['Posts']
+		}),
+		getSubscribedPosts: build.query<{posts: Pick<PostType, 'id'>[], ok: boolean, error?: string}, undefined>({
+			query: () => ({
+				url: '/posts/me/subscribed'
+			}),
+			providesTags: ['Posts']
 		})
 	})
 });
@@ -55,5 +61,6 @@ export const {
 	useLikePostMutation,
 	useCreatePostMutation,
 	useGetUserPostsQuery,
-	useGetLikedQuery
+	useGetLikedQuery,
+	useGetSubscribedPostsQuery
 } = postsSlice;

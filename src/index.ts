@@ -11,3 +11,6 @@ export { AuthLayout } from './layouts/AuthLayout/AuthLayout.tsx';
 export { UpdateUserPage } from './pages/UpdateUserPage/UpdateUserPage.tsx';
 export {UserPostsPage} from './pages/UserPostsPage.tsx';
 export {UserLikedPage} from './pages/UserLikedPosts.tsx';
+export {SubscribesPage} from './pages/SubscribesPage/SubscribesPage.tsx';
+export {SubscribersPage} from './pages/SubscribersPage.tsx';
+export {SubscriptionsPage} from './pages/SubscriptionsPage.tsx';

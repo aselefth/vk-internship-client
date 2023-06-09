@@ -8,7 +8,6 @@ import {
 	UpdateUserPage,
 	ProtecredRoute,
 	AuthLayout,
-	ReceivedRequestsPage,
 	FriendsPage,
 	FeedPage,
 	AccountPage,
@@ -16,7 +15,10 @@ import {
 	SignUpPage,
 	RootLayout,
 	UserLikedPage,
-	UserPostsPage
+	UserPostsPage,
+	SubscribesPage,
+	SubscribersPage,
+	SubscriptionsPage
 } from './index.ts';
 
 const router = createBrowserRouter([
@@ -47,12 +49,20 @@ const router = createBrowserRouter([
 						]
 					},
 					{
+						path: '/:id/subscribers',
+						element: <SubscribersPage />
+					},
+					{
+						path: '/:id/subscriptions',
+						element: <SubscriptionsPage />
+					},
+					{
 						path: '/feed',
 						element: <FeedPage />
 					},
 					{
 						path: '/subscribed',
-						element: <ReceivedRequestsPage />
+						element: <SubscribesPage />
 					},
 					{
 						path: '/update',

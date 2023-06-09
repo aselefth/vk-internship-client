@@ -6,33 +6,46 @@ import {
    faUniversity,
    faPen
 } from "@fortawesome/free-solid-svg-icons";
-import { useEffect, useState } from "react";
 import { getAgeString } from "../../utils/getAgeString";
 import { AccountLayout } from "./AccountLayout";
 import { useNavigate, useParams } from "react-router-dom";
 import { getSession } from "../../utils/getSession";
+import { useImageUrl } from "../../hooks/useImageUrl";
+import {
+   useDeleteMyRequestMutation,
+   useGetIsSubscribedQuery,
+   useSendRequestMutation
+} from "../../store/Api/requestsSlice";
 
 export function AccountPage() {
    const { id } = useParams<{ id: string }>();
    const session = getSession();
    const { data: me } = useGetUserByIdQuery(String(id));
-   const [imgUrl, setImgUrl] = useState("");
-	const navigate = useNavigate();
+   const { imgUrl } = useImageUrl({
+      type: "userId",
+      id: me?.id,
+      filePath: me?.filePath
+   });
+   const { data: subData } = useGetIsSubscribedQuery(String(id));
+   const [unsub] = useDeleteMyRequestMutation();
+   const [sub] = useSendRequestMutation();
 
-   useEffect(() => {
-      async function getImg(userId: string) {
-         const res = await fetch(
-            "http://localhost:3001/api/files?userId=" + userId
-         );
-         const data = new Uint8Array(await res.arrayBuffer());
-         const blob = new Blob([data], { type: "image/png" });
-         const img = window.webkitURL.createObjectURL(blob);
-         setImgUrl(img);
+   async function handleUnsubscribe(recieverId: string) {
+      try {
+         await unsub({ recieverId });
+      } catch (e) {
+         console.log(e);
       }
-      if (me && me.filePath) {
-         getImg(me.id);
+   }
+
+   async function handleSubscribe(recieverId: string) {
+      try {
+         await sub(recieverId);
+      } catch (e) {
+         console.log(e);
       }
-   }, [me]);
+   }
+   const navigate = useNavigate();
 
    return (
       <div className="flex flex-col items-center w-full min-h-full">
@@ -60,12 +73,31 @@ export function AccountPage() {
                </div>
                <div className="flex items-center gap-4 justify-end">
                   {id === session?.id ? (
-                     <button className="btn btn-primary" onClick={() => navigate('/update')}>
+                     <button
+                        className="btn btn-primary"
+                        onClick={() => navigate("/update")}
+                     >
                         <FontAwesomeIcon icon={faPen} />{" "}
                         <span>Редактировать</span>
                      </button>
+                  ) : subData?.isSubscribed ? (
+                     <button
+                        className="btn btn-primary"
+                        onClick={() => {
+                           handleUnsubscribe(String(me?.id));
+                        }}
+                     >
+                        Отписаться
+                     </button>
                   ) : (
-                     <button className="btn btn-primary">Подписаться</button>
+                     <button
+                        className="btn btn-primary"
+                        onClick={() => {
+                           handleSubscribe(String(me?.id));
+                        }}
+                     >
+                        Подписаться
+                     </button>
                   )}
                </div>
                <p className="text-xl font-bold">
@@ -86,13 +118,19 @@ export function AccountPage() {
                   </p>
                </article>
                <article className="text-gray-300 font-light flex items-center gap-4 flex-wrap">
-                  <p>
+                  <p
+                     onClick={() => navigate(`/${id}/subscribers`)}
+                     className="cursor-pointer"
+                  >
                      <span className="font-bold">
                         {me?.recievedRequests.length}
                      </span>{" "}
                      подписчиков
                   </p>
-                  <p>
+                  <p
+                     onClick={() => navigate(`/${id}/subscriptions`)}
+                     className="cursor-pointer"
+                  >
                      <span className="font-bold">
                         {me?.sentRequests.length}
                      </span>{" "}

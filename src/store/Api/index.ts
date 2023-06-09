@@ -10,6 +10,6 @@ export const mainApiSlice = createApi({
 			return headers;
 		}
 	}),
-	tagTypes: ['App', 'Posts', 'User'],
+	tagTypes: ['App', 'Posts', 'User', 'Subs'],
 	endpoints: () => ({})
 });
