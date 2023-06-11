@@ -7,8 +7,7 @@ export function UserBio(props: { id: string }) {
    const { data: user } = useGetUserByIdQuery(props.id);
    const { imgUrl } = useImageUrl({
       type: "userId",
-      id: user?.id,
-      filePath: user?.filePath
+      id: props.id,
    });
    const { data } = useGetIsSubscribedQuery(props.id);
    const navigate = useNavigate();

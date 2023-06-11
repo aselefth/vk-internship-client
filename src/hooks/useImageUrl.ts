@@ -3,16 +3,16 @@ import { useEffect, useState } from "react";
 interface UseImageUrlProps {
    type: "userId" | "postId";
    id: string | undefined;
-   filePath: string | null | undefined;
 }
 
 export function useImageUrl(props: UseImageUrlProps) {
    const [imgUrl, setImgUrl] = useState("");
+   
 
    useEffect(() => {
-      async function getImg(id: string) {
+      async function getImg(body: UseImageUrlProps) {
          const res = await fetch(
-            `http://localhost:3001/api/files?${props.type}=${id}`
+            `http://localhost:3001/api/files?${body.type}=${body.id}`
          );
          const data = new Uint8Array(await res.arrayBuffer());
          const blob = new Blob([data], { type: "image/png" });
@@ -20,12 +20,12 @@ export function useImageUrl(props: UseImageUrlProps) {
          setImgUrl(img);
       }
 
-      if (props.id && props.filePath) {
-         getImg(props.id);
+      if (props.id) {
+         getImg(props);
       } else {
          setImgUrl('');
       }
-   }, [props.id]);
+   }, [props]);
 
    return {imgUrl, setImgUrl};
 }

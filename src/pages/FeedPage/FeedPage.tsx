@@ -1,4 +1,4 @@
-import { Loader } from '../../components/Loader/Loader';
+import { CreatePostModal } from '../../components/CreatePostModal/CreatePostModal';
 import { Post } from '../../components/Post/Post';
 import { PostLoader } from '../../components/PostLoader';
 import { useGetAllPostsQuery } from '../../store/Api/postsSlice';
@@ -14,6 +14,7 @@ export function FeedPage() {
 			>
 				Лента
 			</h1>
+			<CreatePostModal />
 			{isLoading && (
 				<>
 					<PostLoader />
