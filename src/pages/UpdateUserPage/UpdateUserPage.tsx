@@ -1,7 +1,4 @@
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useGetMeQuery, useUpdateMeMutation } from '../../store/Api/usersSlice';
-import styles from './UpdateUserPage.module.scss';
-import { faCheck, faXmark } from '@fortawesome/free-solid-svg-icons';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { UpdateUserUI } from './UpdateUserUI';
@@ -43,7 +40,7 @@ export function UpdateUserPage() {
 				return;
 			}
 			if (me?.filePath) {
-				await fetch('http://localhost:3001/api/files/', {
+				await fetch(import.meta.env.VITE_API_URL + '/api/files/', {
 					method: 'DELETE',
 					credentials: 'include',
 					mode: 'cors',
@@ -54,7 +51,7 @@ export function UpdateUserPage() {
 				});
 			}
 
-			const res = await fetch('http://localhost:3001/api/files/users', {
+			const res = await fetch(import.meta.env.VITE_API_URL + '/api/files/users', {
 				method: 'POST',
 				body: (() => {
 					const form = new FormData();

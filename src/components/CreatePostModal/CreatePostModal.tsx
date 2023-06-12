@@ -34,7 +34,7 @@ export function CreatePostModal() {
             return;
          } else {
             const response = await fetch(
-               "http://localhost:3001/api/files/posts",
+               import.meta.env.VITE_API_URL + "/api/files/posts",
                {
                   method: "POST",
                   body: (() => {
@@ -70,14 +70,14 @@ export function CreatePostModal() {
          }}
       >
          <div className="flex gap-2 w-full">
-            <div className="w-full flex-grow">
+            <div className="w-full flex-grow sm:flex-grow-0 sm:w-auto">
                <UserCover
                   imgUrl={imgUrl}
                   firstName={me?.firstName}
                   lastName={me?.lastName}
                />
             </div>
-            <div className="flex flex-col gap-2 items-end w-auto">
+            <div className="flex flex-col gap-2 items-end sm:items-start w-auto sm:w-full">
                <textarea
                   placeholder="Есть, чем поделиться?"
                   name="post"

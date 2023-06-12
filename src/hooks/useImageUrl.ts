@@ -14,7 +14,7 @@ export function useImageUrl(props: UseImageUrlProps) {
    useEffect(() => {
       async function getImg(body: UseImageUrlProps) {
          const res = await fetch(
-            `http://localhost:3001/api/files?${body.type}=${body.id}`
+            `${import.meta.env.VITE_API_URL}/api/files?${body.type}=${body.id}`
          );
          const data = new Uint8Array(await res.arrayBuffer());
          const blob = new Blob([data], { type: "image/png" });

@@ -26,7 +26,7 @@ export function Post({ postId }: PostProps) {
    useEffect(() => {
       async function getImg(userId: string) {
          const res = await fetch(
-            "http://localhost:3001/api/files?userId=" + userId
+            import.meta.env.VITE_API_URL + "/api/files?userId=" + userId
          );
          const data = new Uint8Array(await res.arrayBuffer());
          const blob = new Blob([data], { type: "image/png" });
@@ -41,7 +41,7 @@ export function Post({ postId }: PostProps) {
    useEffect(() => {
       async function getImg(postId: string) {
          const res = await fetch(
-            "http://localhost:3001/api/files?postId=" + postId
+            import.meta.env.VITE_API_URL + "/api/files?postId=" + postId
          );
          const data = new Uint8Array(await res.arrayBuffer());
          const blob = new Blob([data], { type: "image/png" });
