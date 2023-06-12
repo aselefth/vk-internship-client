@@ -3,10 +3,12 @@ import { useEffect, useState } from "react";
 interface UseImageUrlProps {
    type: "userId" | "postId";
    id: string | undefined;
+   skip?: boolean
 }
 
 export function useImageUrl(props: UseImageUrlProps) {
    const [imgUrl, setImgUrl] = useState("");
+   const skip = props.skip ?? false;
    
 
    useEffect(() => {
@@ -20,7 +22,7 @@ export function useImageUrl(props: UseImageUrlProps) {
          setImgUrl(img);
       }
 
-      if (props.id) {
+      if (props.id && !skip) {
          getImg(props);
       } else {
          setImgUrl('');

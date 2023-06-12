@@ -25,11 +25,11 @@ export function PostUI({
 }: UIProps) {
    return (
       <div
-         className="w-full flex gap-4 px-4 py-2 border-b-[1px] border-gray-500 
+         className="w-full flex gap-3 px-4 py-2 border-b-[1px] border-gray-500 
 		last:border-b-0 hover:bg-zinc-950 cursor-pointer"
       >
          <div className={["avatar", !postImg && "placeholder"].join(" ")}>
-            <div className="w-14 h-14 rounded-[50%] border-purple-800 border-4">
+            <div className="sm:w-14 sm:h-14 h-12 w-12 rounded-[50%] border-purple-800 border-4">
                {usrImg ? (
                   <img src={usrImg} />
                ) : (
@@ -41,7 +41,7 @@ export function PostUI({
             </div>
          </div>
          <div className="flex flex-col text-white gap-2">
-            <article className="flex gap-2 items-center text-lg">
+            <article className="flex sm:gap-2 sm:items-center text-base flex-col items-start sm:flex-row">
                <h2
                   onClick={(_) => handleNavigateToUserPage()}
                   className="cursor-pointer hover:text-gray-300 active:text-gray:300 transition duration-150"
@@ -52,7 +52,7 @@ export function PostUI({
                   {post && getDateString(`${post?.createdAt}`)}
                </h3>
             </article>
-            <p className="text-md">{post?.post}</p>
+            <p className="sm:text-md text-sm">{post?.post}</p>
             {postImg && (
                <img
                   src={postImg}

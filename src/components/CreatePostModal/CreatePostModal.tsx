@@ -21,7 +21,7 @@ export function CreatePostModal() {
       type: "userId",
       id: session?.id
    });
-   const {data: me} = useGetMeQuery(undefined);
+   const { data: me } = useGetMeQuery(undefined);
 
    async function handleCreatePost(postBody: {
       post: string;
@@ -61,40 +61,23 @@ export function CreatePostModal() {
       }
    }
 
-   // async function handleUploadFile({
-   // 	postId,
-   // 	file
-   // }: {
-   // 	postId: string;
-   // 	file: File;
-   // }): Promise<boolean> {
-   // 	try {
-   // 		const { ok } = await addFile({ postId, file }).unwrap();
-   // 		if (ok) {
-   // 			return true;
-   // 		}
-   // 	} catch (e) {
-   // 		console.log(e);
-   // 		return false;
-   // 	}
-   // 	return false;
-   // }
-
    return (
       <form
-         className="flex w-full p-4 gap-4 justify-between border-b-[1px] border-gray-500"
+         className="flex sm:flex-row flex-col w-full p-4 gap-4 sm:justify-between border-b-[1px] border-gray-500"
          onSubmit={(e) => {
             e.preventDefault();
             handleCreatePost(postData);
          }}
       >
-         <div className="flex gap-4 w-full">
-            <UserCover
-               imgUrl={imgUrl}
-               firstName={me?.firstName}
-               lastName={me?.lastName}
-            />
-            <div className="flex flex-col gap-4 w-full">
+         <div className="flex gap-2 w-full">
+            <div className="w-full flex-grow">
+               <UserCover
+                  imgUrl={imgUrl}
+                  firstName={me?.firstName}
+                  lastName={me?.lastName}
+               />
+            </div>
+            <div className="flex flex-col gap-2 items-end w-auto">
                <textarea
                   placeholder="Есть, чем поделиться?"
                   name="post"
@@ -102,7 +85,7 @@ export function CreatePostModal() {
                   onChange={(e) =>
                      setPostData({ ...postData, post: e.target.value })
                   }
-                  className="textarea textarea-primary resize-none text-base w-full min-h-[8rem] overflow-y-auto"
+                  className="textarea textarea-primary resize-none text-base sm:w-full w-[17rem] min-h-[8rem] overflow-y-auto"
                />
                <input
                   type="file"
@@ -112,7 +95,7 @@ export function CreatePostModal() {
                         file: e?.target?.files![0]
                      }))
                   }
-                  className="file-input file-input-bordered file-input-primary w-full max-w-xs"
+                  className="file-input file-input-bordered file-input-primary sm:w-full w-[17rem] max-w-xs"
                />
             </div>
          </div>

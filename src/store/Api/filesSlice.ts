@@ -22,9 +22,12 @@ const filesSlice = mainApiSlice.injectEndpoints({
 						return 'files?postId=' + postId;
 					}
 					return 'files?userId=' + userId;
-				})()
+				})(),
+				headers: {
+					'Content-Type': 'image/png'
+				}
 			}),
-			providesTags: ['App']
+			providesTags: ['User', 'Posts']
 		}),
 		uploadUserFile: build.mutation<{ok: boolean}, { file: File; postId: string }>({
 			query: ({ file, postId }) => ({
