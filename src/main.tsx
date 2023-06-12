@@ -76,9 +76,7 @@ const routes = [
    }
 ];
 
-const router = createBrowserRouter(routes, {
-   basename: import.meta.env.DEV ? "/" : "/vk-internship-client/"
-});
+const router = createBrowserRouter(routes);
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
    <Provider store={store}>

@@ -2,23 +2,14 @@ import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 
 // https://vitejs.dev/config/
-export default defineConfig(({ command }) => {
-   const config = {
-      plugins: [react()],
-      server: {
-         port: 3000,
-         watch: {
-            usePolling: true
-         },
-         host: true,
-         strictPort: true
+export default defineConfig({
+   plugins: [react()],
+   server: {
+      port: 3000,
+      watch: {
+         usePolling: true
       },
-      base: "/"
-   };
-
-   if (command !== "serve") {
-      config.base = "/vk-internship-client/";
+      host: true,
+      strictPort: true
    }
-
-   return config;
 });
