@@ -15,7 +15,9 @@ const postsSlice = mainApiSlice.injectEndpoints({
 				url: `posts/${postId}`,
 				method: 'GET'
 			}),
-			providesTags: (res, err, arg) =>
+			providesTags:
+			/*@ts-ignore */ 
+			(res, err, arg) =>
 				res ? [{ type: 'Posts' as const, id: res.id }] : ['Posts']
 		}),
 		getUserPosts: build.query<PostType[], string>({
@@ -30,7 +32,9 @@ const postsSlice = mainApiSlice.injectEndpoints({
 				method: 'POST',
 				body
 			}),
-			invalidatesTags: (res, err, arg) => [{type: 'Posts', id: arg.postId}]
+			invalidatesTags: 
+			/*@ts-ignore */
+			(res, err, arg) => [{type: 'Posts', id: arg.postId}]
 		}),
 		createPost: build.mutation<{ id: string }, Pick<PostType, 'post'>>({
 			query: (body) => ({
