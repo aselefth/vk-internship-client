@@ -7,7 +7,6 @@ import { CookiesProvider } from 'react-cookie';
 import {
 	UpdateUserPage,
 	ProtecredRoute,
-	AuthLayout,
 	FeedPage,
 	AccountPage,
 	SignInPage,
@@ -62,21 +61,16 @@ const router = createBrowserRouter([
 					{
 						path: '/update',
 						element: <UpdateUserPage />
-					}
+					},
+					
 				]
-			}
-		]
-	},
-	{
-		path: '/auth',
-		element: <AuthLayout />,
-		children: [
+			},
 			{
-				path: '/auth/signin',
+				path: '/signin',
 				element: <SignInPage />
 			},
 			{
-				path: '/auth/signup',
+				path: '/signup',
 				element: <SignUpPage />
 			}
 		]

@@ -14,9 +14,6 @@ export function Navigation() {
    const session = getSession();
    const navigate = useNavigate();
    const [signOut] = useLazySignOutQuery();
-   if (!session) {
-      navigate("/auth/signin");
-   }
    const routes = [
       {
          path: `${session?.id}/posts`,
@@ -31,7 +28,7 @@ export function Navigation() {
    async function handleSignOut() {
       try {
          await signOut(undefined);
-         navigate("/auth/signin");
+         navigate("/signin");
       } catch (e) {
          console.error(e);
       }
@@ -48,7 +45,7 @@ export function Navigation() {
             >
                <FontAwesomeIcon icon={faVk} />
             </div>
-            {routes.map((route) => (
+            {session && routes.map((route) => (
                <div
                   key={route.path}
                   className={`text-lg text-white flex items-center gap-4 px-4 py-2 hover:bg-purple-900 

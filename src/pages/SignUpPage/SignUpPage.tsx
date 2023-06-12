@@ -12,7 +12,7 @@ export function SignUpPage() {
 	async function handleSignUp(signUpDto: SignUpType) {
 		try {
 			await signUp(signUpDto);
-			navigate('/auth/signin');
+			navigate('/signin');
 		} catch (e) {
 			console.error(e);
 		}

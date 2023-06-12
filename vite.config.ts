@@ -12,5 +12,4 @@ export default defineConfig({
 		host: true,
 		strictPort: true
 	},
-	base: '/vk-internship-client/'
 });

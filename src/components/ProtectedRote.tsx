@@ -7,7 +7,7 @@ export function ProtecredRoute() {
 	const getIsAuthorized = () => (jwt_token ? true : false);
 
 	if (!getIsAuthorized()) {
-		return <Navigate to='/auth/signin' />;
+		return <Navigate to='/signin' />;
 	}
 
 	return <Outlet />;

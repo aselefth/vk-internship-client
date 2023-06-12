@@ -45,7 +45,7 @@ export function UISignInForm({ register, handleSubmit, onSubmit }: FormProps) {
             </button>
             <p className="flex items-center">
                <span>Нет аккаунта?</span>
-               <a href="/auth/signup" className="btn-link btn">
+               <a href="/signup" className="btn-link btn">
                   Зарегистрироваться
                </a>
             </p>

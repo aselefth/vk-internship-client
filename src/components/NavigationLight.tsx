@@ -10,7 +10,7 @@ export function NavigationLight() {
             <div
                className={`text-3xl text-white flex items-center gap-4 px-4 py-2 hover:bg-purple-900 
 						transition duration-[.2s] rounded-[1000px] hover:cursor-pointer`}
-               onClick={() => navigate("/auth/signin")}
+               onClick={() => navigate("/signin")}
             >
                <FontAwesomeIcon icon={faVk} />
             </div>

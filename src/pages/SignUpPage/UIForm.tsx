@@ -83,7 +83,7 @@ export function UISignUpForm({ register, handleSubmit, onSubmit }: FormProps) {
 				</button>
 				<p>
 					Есть аккаунт?{' '}
-					<a href='/auth/signin' className='btn btn-link'>
+					<a href='/signin' className='btn btn-link'>
 						Войти
 					</a>
 				</p>
