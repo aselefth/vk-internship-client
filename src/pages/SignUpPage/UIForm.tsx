@@ -14,7 +14,7 @@ interface FormProps {
 export function UISignUpForm({ register, handleSubmit, onSubmit }: FormProps) {
 	return (
 		<form
-			className='flex flex-col gap-4 items-center w-full'
+			className='flex flex-col gap-4 items-center w-full pt-2 lg:pt-0'
 			onSubmit={handleSubmit(onSubmit)}
 		>
 			<h1 className='text-xl font-bold'>Регистрация</h1>
