@@ -1,5 +1,5 @@
 import { Outlet } from "react-router-dom";
-import { NavigationLight } from "../../components/Navigation/NavigationLight";
+import { NavigationLight } from "../components/NavigationLight";
 
 export function AuthLayout() {
    return (

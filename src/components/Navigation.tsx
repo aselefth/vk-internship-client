@@ -7,8 +7,8 @@ import {
 import { faVk } from "@fortawesome/free-brands-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useNavigate } from "react-router-dom";
-import { useLazySignOutQuery } from "../../store/Api/authSlice";
-import { getSession } from "../../utils/getSession";
+import { useLazySignOutQuery } from "../store/Api/authSlice";
+import { getSession } from "../utils/getSession";
 
 export function Navigation() {
    const session = getSession();

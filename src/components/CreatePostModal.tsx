@@ -1,9 +1,9 @@
 import { useState } from "react";
-import { useCreatePostMutation } from "../../store/Api/postsSlice";
-import { useImageUrl } from "../../hooks/useImageUrl";
-import { useGetMeQuery } from "../../store/Api/usersSlice";
-import { UserCover } from "../UserCover";
-import { getSession } from "../../utils/getSession";
+import { useCreatePostMutation } from "../store/Api/postsSlice";
+import { useImageUrl } from "../hooks/useImageUrl";
+import { useGetMeQuery } from "../store/Api/usersSlice";
+import { UserCover } from "./UserCover";
+import { getSession } from "../utils/getSession";
 
 type PostData = {
    post: string;

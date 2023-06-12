@@ -1,7 +1,7 @@
-import { CreatePostModal } from '../../components/CreatePostModal/CreatePostModal';
-import { Post } from '../../components/Post/Post';
-import { PostLoader } from '../../components/PostLoader';
-import { useGetAllPostsQuery } from '../../store/Api/postsSlice';
+import { CreatePostModal } from '../components/CreatePostModal';
+import { Post } from '../components/Post/Post';
+import { PostLoader } from '../components/PostLoader';
+import { useGetAllPostsQuery } from '../store/Api/postsSlice';
 
 export function FeedPage() {
 	const { data: posts, isLoading } = useGetAllPostsQuery(undefined);

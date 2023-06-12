@@ -8,7 +8,6 @@ import {
 	UpdateUserPage,
 	ProtecredRoute,
 	AuthLayout,
-	FriendsPage,
 	FeedPage,
 	AccountPage,
 	SignInPage,
@@ -16,7 +15,7 @@ import {
 	RootLayout,
 	UserLikedPage,
 	UserPostsPage,
-	SubscribesPage,
+	SubsFeedPage,
 	SubscribersPage,
 	SubscriptionsPage
 } from './index.ts';
@@ -30,10 +29,6 @@ const router = createBrowserRouter([
 				path: '/',
 				element: <ProtecredRoute />,
 				children: [
-					{
-						path: '/friends',
-						element: <FriendsPage />
-					},
 					{
 						path: '/:id',
 						element: <AccountPage />,
@@ -62,7 +57,7 @@ const router = createBrowserRouter([
 					},
 					{
 						path: '/subscribed',
-						element: <SubscribesPage />
+						element: <SubsFeedPage />
 					},
 					{
 						path: '/update',

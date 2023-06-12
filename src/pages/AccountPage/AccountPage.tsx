@@ -24,7 +24,6 @@ export function AccountPage() {
    const { imgUrl } = useImageUrl({
       type: "userId",
       id: me?.id,
-      filePath: me?.filePath
    });
    const { data: subData } = useGetIsSubscribedQuery(String(id));
    const [unsub] = useDeleteMyRequestMutation();

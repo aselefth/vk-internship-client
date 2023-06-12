@@ -1,8 +1,8 @@
-import { Post } from "../../components/Post/Post";
-import { PostLoader } from "../../components/PostLoader";
-import { useGetSubscribedPostsQuery } from "../../store/Api/postsSlice";
+import { Post } from "../components/Post/Post";
+import { PostLoader } from "../components/PostLoader";
+import { useGetSubscribedPostsQuery } from "../store/Api/postsSlice";
 
-export function SubscribesPage() {
+export function SubsFeedPage() {
    const { data, isLoading } = useGetSubscribedPostsQuery(undefined);
 	console.log(data);
    return (
